@@ -3,12 +3,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingVertical="15dp">
-
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+    >
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
         android:text="Ultimo Mes: Gastos por Categoría"
-        android:textSize="25sp" />
+        android:textSize="25sp"
+        android:gravity="center"/>
 
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/chart_inicio"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        </com.github.mikephil.charting.charts.PieChart>
+    </androidx.appcompat.widget.LinearLayoutCompat>
 </RelativeLayout>

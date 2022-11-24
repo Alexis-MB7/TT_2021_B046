@@ -25,7 +25,18 @@
         <FrameLayout
             android:id="@+id/fragment_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent" >
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="10dp"
+                app:fabCustomSize="70dp"
+                android:backgroundTint="@color/purple_500"
+                android:background="@color/purple_500"
+                android:src="@drawable/ic_agregar_mov"/>
+        </FrameLayout>
 
     </LinearLayout>
 
@@ -36,5 +47,6 @@
         android:layout_gravity="start"
         app:headerLayout="@layout/nav_header"
         app:menu="@menu/nav_main_menu" />
+
 
 </androidx.drawerlayout.widget.DrawerLayout>
