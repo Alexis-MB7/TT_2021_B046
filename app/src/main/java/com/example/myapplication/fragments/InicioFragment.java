@@ -38,6 +38,7 @@ public class InicioFragment extends Fragment {
         pieChart = view.findViewById(R.id.chart_inicio);
         setupPieChart();
         loadPieChartData();
+
     }
 
     private void setupPieChart(){
