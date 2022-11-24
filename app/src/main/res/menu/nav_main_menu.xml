@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_inicio"
+            android:icon="@drawable/ic_inicio"
+            android:title="Inicio" />
+        <item
+            android:id="@+id/nav_categorias"
+            android:icon="@drawable/ic_categorias"
+            android:title="Categorias" />
+        <item
+            android:id="@+id/nav_movimientos"
+            android:icon="@drawable/ic_movimientos"
+            android:title="Movimientos" />
+        <item
+            android:id="@+id/nav_estadisticas"
+            android:icon="@drawable/ic_estadisticas"
+            android:title="Estadisticas" />
+        <item
+            android:id="@+id/nav_presupuesto"
+            android:icon="@drawable/ic_presupuesto"
+            android:title="Presupuesto" />
+        <item
+            android:id="@+id/nav_proyectos"
+            android:icon="@drawable/ic_proyectos"
+            android:title="Proyectos" />
+        <item
+            android:id="@+id/nav_Predicciones"
+            android:icon="@drawable/ic_predicciones"
+            android:title="Predicciones" />
+        <item
+            android:id="@+id/nav_cuenta"
+            android:icon="@drawable/ic_cuenta"
+            android:title="Cuenta" />
+
+
+
+
+
+    </group>
+
+</menu>
