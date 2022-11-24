@@ -8,6 +8,7 @@ import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.CategoriaAdapter;
@@ -24,13 +25,15 @@ public class CategoriasFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_categorias, container, false);
-        return view;
+        return inflater.inflate(R.layout.fragment_categorias, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
+        toolbar.setTitle("Categorias");
 
         listViewCategorias = (ListView) view.findViewById(R.id.listViewCategorias);
         CategoriaAdapter adapter = new CategoriaAdapter(getActivity(), fillData());

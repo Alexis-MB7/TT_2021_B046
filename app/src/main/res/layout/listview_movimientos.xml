@@ -7,9 +7,10 @@
     <androidx.cardview.widget.CardView
         android:layout_width="0dp"
         android:layout_height="75dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="10dp"
         android:layout_weight="20"
-        app:cardBackgroundColor="@android:color/transparent"
+        app:cardBackgroundColor="@color/transparent"
         app:cardCornerRadius="250dp"
         app:cardElevation="0dp">
 
@@ -21,7 +22,8 @@
             app:cardCornerRadius="250dp">
 
             <ImageView
-                android:id="@+id/imageView_1"
+                android:contentDescription="Icono de Categoria"
+                android:id="@+id/imageView_mov"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:padding="5dp"
@@ -33,25 +35,38 @@
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="75dp"
-        android:layout_weight="75"
+        android:layout_weight="55"
+        android:layout_marginEnd="5dp"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textViewNombre"
+            android:id="@+id/textViewMovCategoria"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="60"
-            android:gravity="start|center"
+            android:layout_height="40dp"
+            android:gravity="start|bottom"
+            android:paddingBottom="2dp"
             android:text="Comida y Bebida"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/textViewSubcategorias"
+            android:id="@+id/textViewMovDescripcion"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="40"
+            android:layout_height="35dp"
             android:gravity="start|top"
             android:text="2 subcategorias"
             android:textStyle="italic" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/mov_Monto"
+        android:layout_width="0dp"
+        android:layout_height="75dp"
+        android:layout_weight="20"
+        android:layout_marginEnd="10dp"
+        android:gravity="center_vertical|center_horizontal"
+        android:textStyle="bold"
+        android:textSize="22sp"
+        android:text="$55.00"
+
+        />
 </LinearLayout>

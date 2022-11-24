@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import com.example.myapplication.fragments.CategoriasFragment;
 import com.example.myapplication.fragments.EstadisticasFragment;
 import com.example.myapplication.fragments.InicioFragment;
+import com.example.myapplication.fragments.MovimientosFragment;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("Inicio");
         setSupportActionBar(toolbar);
 
         drawer = findViewById(R.id.drawer_layout);
@@ -51,6 +53,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_estadisticas:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new EstadisticasFragment()).commit();
+                break;
+            case R.id.nav_movimientos:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MovimientosFragment()).commit();
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);
