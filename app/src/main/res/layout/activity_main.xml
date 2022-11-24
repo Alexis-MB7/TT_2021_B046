@@ -33,8 +33,8 @@
                 android:layout_gravity="bottom|end"
                 android:layout_margin="10dp"
                 app:fabCustomSize="70dp"
-                android:backgroundTint="@color/purple_500"
-                android:background="@color/purple_500"
+                android:backgroundTint="@color/purple_200"
+                android:background="@color/purple_200"
                 android:src="@drawable/ic_agregar_mov"/>
         </FrameLayout>
 

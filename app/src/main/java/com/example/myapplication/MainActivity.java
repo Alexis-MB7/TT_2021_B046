@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.example.myapplication.fragments.CategoriasFragment;
+import com.example.myapplication.fragments.CuentaFragment;
 import com.example.myapplication.fragments.EstadisticasFragment;
 import com.example.myapplication.fragments.InicioFragment;
 import com.example.myapplication.fragments.MovimientosFragment;
@@ -56,6 +57,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_movimientos:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MovimientosFragment()).commit();
+                break;
+            case R.id.nav_cuenta:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CuentaFragment()).commit();
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);

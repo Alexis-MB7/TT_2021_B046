@@ -66,7 +66,6 @@ public class InicioFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MovimientosFragment()).commit();
-                System.out.println("Aqui");
                 NavigationView navigationView = (NavigationView) getActivity().findViewById(R.id.nav_view);
                 navigationView.setCheckedItem(R.id.nav_movimientos);
             }
