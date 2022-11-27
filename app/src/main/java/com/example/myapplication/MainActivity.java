@@ -17,7 +17,8 @@ import com.example.myapplication.fragments.EstadisticasFragment;
 import com.example.myapplication.fragments.InicioFragment;
 import com.example.myapplication.fragments.MovimientosFragment;
 import com.example.myapplication.fragments.PrediccionesFragment;
-import com.example.myapplication.fragments.ProyectoFragment;
+import com.example.myapplication.fragments.PresupuestoNuevoFragment;
+import com.example.myapplication.fragments.ProyectoNuevoFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
@@ -60,15 +61,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()){
             case R.id.nav_inicio:
+                fab.show();
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new InicioFragment()).commit();
                 break;
             case R.id.nav_categorias:
+                fab.show();
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CategoriasFragment()).commit();
                 break;
             case R.id.nav_estadisticas:
+                fab.show();
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new EstadisticasFragment()).commit();
                 break;
             case R.id.nav_movimientos:
+                fab.show();
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MovimientosFragment()).commit();
                 break;
             case R.id.nav_cuenta:
@@ -76,10 +81,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CuentaFragment()).commit();
                 break;
             case R.id.nav_Predicciones:
+                fab.show();
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PrediccionesFragment()).commit();
                 break;
             case R.id.nav_proyectos:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProyectoFragment()).commit();
+                fab.hide();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProyectoNuevoFragment()).commit();
+                break;
+            case R.id.nav_presupuesto:
+                fab.hide();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PresupuestoNuevoFragment()).commit();
                 break;
 
         }

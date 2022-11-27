@@ -97,7 +97,6 @@ public class EstadisticasFragment extends Fragment {
         imageButton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TextView text = (TextView) getActivity().findViewById(R.id.filtroEstadisticas);
                 showAlertDialog(text);
 
             }
@@ -107,7 +106,6 @@ public class EstadisticasFragment extends Fragment {
 
     private void showAlertDialog(TextView text) {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
-        alertDialog.setTitle("AlertDialog");
 
         alertDialog.setSingleChoiceItems(items, opt, new DialogInterface.OnClickListener() {
             @Override

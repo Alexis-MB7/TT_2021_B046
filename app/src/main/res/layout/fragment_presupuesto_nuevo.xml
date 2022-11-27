@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout_presupuesto_nuevo"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="20"
+            android:layout_margin="5dp"
+            android:clickable="true"
+            app:endIconDrawable="@drawable/ic_dropdown"
+            app:endIconMode="custom"
+            app:endIconCheckable="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textInputEdit_presupuesto_nuevo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Tipo de Presupuesto"
+                android:inputType="text"
+                android:clickable="true"
+                android:focusable="false"
+                android:background="@color/transparent"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:gravity="center_vertical"
+        android:text="Resumen"
+        android:paddingStart="15dp"
+        android:textStyle="italic|bold"
+        android:textSize="20sp"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="30"
+        android:text="Aqui va una breve descripcion del, presupuesto que se ha elegido en el slector anterior"
+        android:paddingStart="15dp"
+        android:textStyle="normal"
+        android:background="@drawable/style_border"
+        android:layout_margin="10dp"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="80"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_presupuesto"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_weight="5"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="10dp"
+        app:fabCustomSize="70dp"
+        android:backgroundTint="@color/purple_200"
+        android:background="@color/purple_200"
+        android:src="@drawable/ic_aceptar"/>
+
+
+
+
+</LinearLayout>

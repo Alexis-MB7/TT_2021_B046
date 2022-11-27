@@ -17,7 +17,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.Movimiento;
-import com.example.myapplication.PrediccionesAdapter;
 import com.example.myapplication.ProyectoAdapter;
 import com.example.myapplication.R;
 
@@ -26,7 +25,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ProyectoFragment extends Fragment {
+public class ProyectoNuevoFragment extends Fragment {
     List<String> group_items;
     List<Movimiento>  movimientoList;
     Map<String, List<Movimiento> > list_proyecto;
