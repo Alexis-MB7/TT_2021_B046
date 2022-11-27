@@ -5,4 +5,11 @@
     <string name="inicio">Inicio</string>
     <string name="categorias">Categorias</string>
     <string name="estadisticas">Estadísticas</string>
+
+    <string-array name="periodos">
+        <item>Semanas</item>
+        <item>Meses</item>
+        <item>Años</item>
+    </string-array>
+
 </resources>

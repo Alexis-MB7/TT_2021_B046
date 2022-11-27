@@ -2,6 +2,8 @@ package com.example.myapplication.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
@@ -22,9 +24,24 @@ public class CategoriasFragment extends Fragment {
     ListView listViewCategorias;
     List<Categorias> categoriasList;
 
-    @Nullable
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(@NonNull Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        MenuItem item2 = menu.findItem(R.id.aceptar);
+        item2.setVisible(false);
+        MenuItem item3 = menu.findItem(R.id.guardar);
+        item3.setVisible(false);
+
+    }
+
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        requireActivity().invalidateOptionsMenu();
         return inflater.inflate(R.layout.fragment_categorias, container, false);
     }
 

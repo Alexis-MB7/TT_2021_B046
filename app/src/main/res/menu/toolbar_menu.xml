@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/agregar"
+        android:title="Agregar"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_agregar"/>
+
+    <item android:id="@+id/aceptar"
+        android:title="Aceptar"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_aceptar"/>
+
+    <item android:id="@+id/guardar"
+        android:title="Guardar"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_guardar"/>
+
+</menu>

@@ -4,6 +4,8 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -40,9 +42,26 @@ public class EstadisticasFragment extends Fragment {
     public int opt = 0;
     public String[] items = {"Gastos por Tipo","Gastos por Categoria"};
 
-    @Nullable
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(@NonNull Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        MenuItem item = menu.findItem(R.id.agregar);
+        item.setVisible(false);
+        MenuItem item2 = menu.findItem(R.id.aceptar);
+        item2.setVisible(false);
+        MenuItem item3 = menu.findItem(R.id.guardar);
+        item3.setVisible(false);
+
+    }
+
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        requireActivity().invalidateOptionsMenu();
         return inflater.inflate(R.layout.fragment_estadisticas, container, false);
     }
 
@@ -52,6 +71,9 @@ public class EstadisticasFragment extends Fragment {
 
         Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
         toolbar.setTitle("Estadisticas");
+
+        TextView text = (TextView) getActivity().findViewById(R.id.filtroEstadisticas);
+        text.setText(items[opt]);
 
         pieChart = view.findViewById(R.id.chart_estadisticas);
         setupPieChart();
@@ -103,6 +125,9 @@ public class EstadisticasFragment extends Fragment {
     private List<Movimiento> fillData() {
         movimientoList = new ArrayList<>();
 
+        movimientoList.add(new Movimiento(1,R.drawable.ic_money,10.50f,"Comida y Bebida","Papitas", 255,79,55));
+        movimientoList.add(new Movimiento(1,R.drawable.ic_money,30.00f,"Comida y Bebida","Refreesco", 255,79,55));
+        movimientoList.add(new Movimiento(1,R.drawable.ic_money,46.50f,"Comida y Bebida","Quesadillas", 255,79,55));
         movimientoList.add(new Movimiento(1,R.drawable.ic_money,10.50f,"Comida y Bebida","Papitas", 255,79,55));
         movimientoList.add(new Movimiento(1,R.drawable.ic_money,30.00f,"Comida y Bebida","Refreesco", 255,79,55));
         movimientoList.add(new Movimiento(1,R.drawable.ic_money,46.50f,"Comida y Bebida","Quesadillas", 255,79,55));

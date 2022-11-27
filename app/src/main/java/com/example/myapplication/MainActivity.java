@@ -8,6 +8,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.myapplication.fragments.CategoriasFragment;
@@ -15,6 +16,8 @@ import com.example.myapplication.fragments.CuentaFragment;
 import com.example.myapplication.fragments.EstadisticasFragment;
 import com.example.myapplication.fragments.InicioFragment;
 import com.example.myapplication.fragments.MovimientosFragment;
+import com.example.myapplication.fragments.PrediccionesFragment;
+import com.example.myapplication.fragments.ProyectoFragment;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -44,6 +47,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar_menu,menu);
+        return true;
+
+    }
+
+    @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()){
             case R.id.nav_inicio:
@@ -60,6 +70,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_cuenta:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CuentaFragment()).commit();
+                break;
+            case R.id.nav_Predicciones:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PrediccionesFragment()).commit();
+                break;
+            case R.id.nav_proyectos:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProyectoFragment()).commit();
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);
