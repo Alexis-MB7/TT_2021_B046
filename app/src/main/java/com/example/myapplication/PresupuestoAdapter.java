@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,15 +15,17 @@ import java.text.NumberFormat;
 import java.util.List;
 import java.util.Map;
 
-public class ProyectoAdapter extends BaseExpandableListAdapter {
+public class PresupuestoAdapter extends BaseExpandableListAdapter {
     private Context context;
     private List<String> groupList;
+    private int[] montoList;
     private Map<String, List<Movimiento> > colection;
 
-    public ProyectoAdapter(Context context, List<String> groupList, Map<String, List<Movimiento> > colection) {
+    public PresupuestoAdapter(Context context, List<String> groupList, int[] montoList, Map<String, List<Movimiento> > colection) {
         this.context = context;
         this.groupList = groupList;
         this.colection = colection;
+        this.montoList = montoList;
     }
 
 
@@ -76,11 +77,15 @@ public class ProyectoAdapter extends BaseExpandableListAdapter {
         String mobileName = getGroup(i).toString();
         if(view == null){
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.expandlist_group, null);
+            view = inflater.inflate(R.layout.expandlist_group_presupuesto, null);
         }
-        TextView item = view.findViewById(R.id.group_item);
+        TextView item = view.findViewById(R.id.group_title);
         item.setTypeface(null, Typeface.BOLD);
         item.setText(mobileName);
+
+        TextView monto = view.findViewById(R.id.group_monto);
+        monto.setTypeface(null, Typeface.BOLD);
+        monto.setText("$" + String.valueOf(montoList[i]));
         return view;
     }
 

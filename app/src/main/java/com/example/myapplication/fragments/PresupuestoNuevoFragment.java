@@ -8,17 +8,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 public class PresupuestoNuevoFragment extends Fragment {
@@ -55,6 +54,9 @@ public class PresupuestoNuevoFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
+        toolbar.setTitle("Presupuesto");
+
         textInputLayout = getActivity().findViewById(R.id.textInputLayout_presupuesto_nuevo);
         text = textInputLayout.getEditText();
         textInputLayout.setEndIconOnClickListener(new View.OnClickListener() {
@@ -82,7 +84,7 @@ public class PresupuestoNuevoFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if(opt == 0){
-                    Toast.makeText(getActivity(), items[0], Toast.LENGTH_SHORT).show();
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Presupuesto50Fragment()).commit();
                 }else if(opt == 1){
                     Toast.makeText(getActivity(), items[1], Toast.LENGTH_SHORT).show();
                 }else{
