@@ -18,10 +18,12 @@ import com.example.myapplication.fragments.InicioFragment;
 import com.example.myapplication.fragments.MovimientosFragment;
 import com.example.myapplication.fragments.PrediccionesFragment;
 import com.example.myapplication.fragments.ProyectoFragment;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
+    private FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new InicioFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_inicio);
         }
+        fab = findViewById(R.id.fab_main);
     }
 
     @Override
@@ -69,6 +72,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MovimientosFragment()).commit();
                 break;
             case R.id.nav_cuenta:
+                fab.hide();
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CuentaFragment()).commit();
                 break;
             case R.id.nav_Predicciones:
@@ -77,6 +81,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_proyectos:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProyectoFragment()).commit();
                 break;
+
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;

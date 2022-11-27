@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="50"
+            android:gravity="bottom"
+            android:paddingStart="25dp"
+            android:text="Gastos por categoría"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="30"
+            android:gravity="top"
+            android:paddingStart="25dp"
+            android:text="Meses pasados: XX"
+            android:textSize="12sp"
+            android:textStyle="italic" />
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/lineChartProyecto"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="370" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="30"
+            android:gravity="top|center_horizontal"
+            android:paddingStart="25dp"
+            android:text="Ahorro total: $XX"
+            android:textAlignment="center"
+            android:textSize="12sp"
+            android:textStyle="italic" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="50"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="Desglose de los Abonos (Mensual)"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <ExpandableListView
+            android:id="@+id/exp_list_proy"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="450" />
+
+    </LinearLayout>
+
+</RelativeLayout>
