@@ -14,9 +14,9 @@ import java.util.Random;
 
 public class CategoriaAdapter extends BaseAdapter {
     Context context;
-    List<Categorias> list_cat;
+    List<Categoria> list_cat;
 
-    public CategoriaAdapter(Context context, List<Categorias> list_cat) {
+    public CategoriaAdapter(Context context, List<Categoria> list_cat) {
         this.context = context;
         this.list_cat = list_cat;
     }
@@ -43,17 +43,17 @@ public class CategoriaAdapter extends BaseAdapter {
         TextView textViewSubcategorias;
         Random rand = new Random();
 
-        Categorias cat = list_cat.get(i);
+        Categoria cat = list_cat.get(i);
 
         if (view == null){
             view = LayoutInflater.from(context).inflate(R.layout.listview_categorias, null);
         }
 
             imageViewCategoria = view.findViewById(R.id.imageView_1);
-            imageViewCategoria.setBackgroundColor(Color.rgb(rand.nextInt(255),rand.nextInt(255),rand.nextInt(255)));
             textViewNombre = view.findViewById(R.id.textViewNombre);
             textViewSubcategorias = view.findViewById(R.id.textViewSubcategorias);
 
+            imageViewCategoria.setBackgroundColor(Color.rgb(cat.colorR,cat.colorG,cat.colorB));
             imageViewCategoria.setImageResource(cat.image);
             textViewNombre.setText(cat.nombre);
             textViewSubcategorias.setText(cat.subcat);

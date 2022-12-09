@@ -18,6 +18,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
+import com.example.myapplication.Categoria;
 import com.example.myapplication.Movimiento;
 import com.example.myapplication.MovimientoAdapter;
 import com.example.myapplication.R;
@@ -121,14 +122,17 @@ public class EstadisticasFragment extends Fragment {
     }
 
     private List<Movimiento> fillData() {
+        Categoria cat = new Categoria(1,R.drawable.ic_money,"Comida y Bebida",null,255,79,55);
+        Categoria cat2 = new Categoria(3,R.drawable.ic_money,"Vivienda",null, 211,84,0);
+
         movimientoList = new ArrayList<>();
 
-        movimientoList.add(new Movimiento(1,R.drawable.ic_money,10.50f,"Comida y Bebida","Papitas", 255,79,55));
-        movimientoList.add(new Movimiento(1,R.drawable.ic_money,30.00f,"Comida y Bebida","Refreesco", 255,79,55));
-        movimientoList.add(new Movimiento(1,R.drawable.ic_money,46.50f,"Comida y Bebida","Quesadillas", 255,79,55));
-        movimientoList.add(new Movimiento(1,R.drawable.ic_money,10.50f,"Comida y Bebida","Papitas", 255,79,55));
-        movimientoList.add(new Movimiento(1,R.drawable.ic_money,30.00f,"Comida y Bebida","Refreesco", 255,79,55));
-        movimientoList.add(new Movimiento(1,R.drawable.ic_money,46.50f,"Comida y Bebida","Quesadillas", 255,79,55));
+        movimientoList.add(new Movimiento(1,10.50f,"Papitas", cat));
+        movimientoList.add(new Movimiento(1,30.0f,"Refresco", cat));
+        movimientoList.add(new Movimiento(1,46.50f,"Quesadillas", cat));
+        movimientoList.add(new Movimiento(1,10.50f,"Servicios", cat2));
+        movimientoList.add(new Movimiento(1,30.0f,"Deposito", cat2));
+        movimientoList.add(new Movimiento(1,46.50f,"Renta", cat2));
 
         return movimientoList;
     }

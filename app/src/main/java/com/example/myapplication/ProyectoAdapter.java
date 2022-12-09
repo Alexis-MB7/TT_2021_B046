@@ -101,10 +101,10 @@ public class ProyectoAdapter extends BaseExpandableListAdapter {
         textViewCategoria = view.findViewById(R.id.textViewMovCategoria);
         textViewDescripcion = view.findViewById(R.id.textViewMovDescripcion);
         textViewMonto = view.findViewById(R.id.mov_Monto);
-        imageViewCategoria.setBackgroundColor(Color.rgb(mov.ColorR,mov.ColorG,mov.ColorB));
+        imageViewCategoria.setBackgroundColor(Color.rgb(mov.cat.colorR,mov.cat.colorG,mov.cat.colorB));
 
-        imageViewCategoria.setImageResource(mov.iconoCategoria);
-        textViewCategoria.setText(mov.categoria);
+        imageViewCategoria.setImageResource(mov.cat.image);
+        textViewCategoria.setText(mov.cat.nombre);
         textViewDescripcion.setText(mov.descripcion);
         NumberFormat df = new DecimalFormat("0.00");
         textViewMonto.setText("$" + df.format(mov.monto));

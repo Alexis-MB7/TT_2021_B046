@@ -2,33 +2,17 @@ package com.example.myapplication;
 
 public class Movimiento {
     public int id;
-    public int iconoCategoria;
     public float monto;
-    public String categoria;
     public String descripcion;
-    public int ColorR;
-    public int ColorG;
-    public int ColorB;
+    public Categoria cat;
 
-    public Movimiento(int id, int iconoCategoria, float monto, String categoria, String descripcion) {
+    public Movimiento(int id, float monto, String descripcion, Categoria cat) {
         this.id = id;
-        this.iconoCategoria = iconoCategoria;
         this.monto = monto;
-        this.categoria = categoria;
         this.descripcion = descripcion;
-    }
+        this.cat = cat;
 
-    public Movimiento(int id, int iconoCategoria, float monto, String categoria, String descripcion, int colorR, int colorG, int colorB) {
-        this.id = id;
-        this.iconoCategoria = iconoCategoria;
-        this.monto = monto;
-        this.categoria = categoria;
-        this.descripcion = descripcion;
-        ColorR = colorR;
-        ColorG = colorG;
-        ColorB = colorB;
     }
-
 
     public int getId() {
         return id;
@@ -36,14 +20,6 @@ public class Movimiento {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getIconoCategoria() {
-        return iconoCategoria;
-    }
-
-    public void setIconoCategoria(int iconoCategoria) {
-        this.iconoCategoria = iconoCategoria;
     }
 
     public float getMonto() {
@@ -54,14 +30,6 @@ public class Movimiento {
         this.monto = monto;
     }
 
-    public String getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
-    }
-
     public String getDescripcion() {
         return descripcion;
     }
@@ -70,27 +38,11 @@ public class Movimiento {
         this.descripcion = descripcion;
     }
 
-    public int getColorR() {
-        return ColorR;
+    public Categoria getCat() {
+        return cat;
     }
 
-    public void setColorR(int colorR) {
-        ColorR = colorR;
-    }
-
-    public int getColorG() {
-        return ColorG;
-    }
-
-    public void setColorG(int colorG) {
-        ColorG = colorG;
-    }
-
-    public int getColorB() {
-        return ColorB;
-    }
-
-    public void setColorB(int colorB) {
-        ColorB = colorB;
+    public void setCat(Categoria cat) {
+        this.cat = cat;
     }
 }

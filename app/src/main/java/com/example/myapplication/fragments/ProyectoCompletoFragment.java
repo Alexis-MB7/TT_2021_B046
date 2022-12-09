@@ -17,6 +17,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
+import com.example.myapplication.Categoria;
 import com.example.myapplication.Movimiento;
 import com.example.myapplication.ProyectoAdapter;
 import com.example.myapplication.R;
@@ -37,6 +38,7 @@ public class ProyectoCompletoFragment extends Fragment {
     Map<String, List<Movimiento> > list_proyecto;
     ExpandableListView expandableListView;
     ExpandableListAdapter expandableListAdapter;
+    Categoria cat = new Categoria(1,R.drawable.ic_money,"Comida y Bebida",null,255,79,55);
     private LineChart lineChart;
 
     @Override
@@ -147,7 +149,7 @@ public class ProyectoCompletoFragment extends Fragment {
     private void loadChilds(String[] items) {
         movimientoList = new ArrayList<>();
         for(String str:items){
-            movimientoList.add(new Movimiento(1,R.drawable.ic_money,10.50f,str,"Ejemplo", 255,79,55));
+            movimientoList.add(new Movimiento(1,10.50f,str,cat));
         }
     }
 

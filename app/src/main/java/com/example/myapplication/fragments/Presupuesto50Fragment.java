@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
+import com.example.myapplication.Categoria;
 import com.example.myapplication.Movimiento;
 import com.example.myapplication.MovimientoAdapter;
 import com.example.myapplication.PresupuestoAdapter;
@@ -35,6 +36,7 @@ public class Presupuesto50Fragment extends Fragment {
     Map<String, List<Movimiento> > expandableList_proyecto;
     ExpandableListView expandableListView;
     ExpandableListAdapter expandableListAdapter;
+    Categoria cat = new Categoria(1,R.drawable.ic_money,"Comida y Bebida",null,255,79,55);
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -100,7 +102,7 @@ public class Presupuesto50Fragment extends Fragment {
     private void loadChilds(String[] items) {
         movimientoExpandableList = new ArrayList<>();
         for(String str:items){
-            movimientoExpandableList.add(new Movimiento(1,R.drawable.ic_money,10.50f,str,"Ejemplo", 255,79,55));
+            movimientoExpandableList.add(new Movimiento(1,10.50f,str,cat));
         }
     }
 
@@ -117,9 +119,9 @@ public class Presupuesto50Fragment extends Fragment {
     private List<Movimiento> fillData() {
         movimientoList = new ArrayList<>();
 
-        movimientoList.add(new Movimiento(1,R.drawable.ic_money,10.50f,"Comida y Bebida","Papitas", 255,79,55));
-        movimientoList.add(new Movimiento(1,R.drawable.ic_money,30.00f,"Comida y Bebida","Refreesco", 255,79,55));
-        movimientoList.add(new Movimiento(1,R.drawable.ic_money,46.50f,"Comida y Bebida","Quesadillas", 255,79,55));
+        movimientoList.add(new Movimiento(1,10.50f,"Papitas", cat));
+        movimientoList.add(new Movimiento(1,30.0f,"Refresco", cat));
+        movimientoList.add(new Movimiento(1,46.50f,"Quesadillas", cat));
 
         return movimientoList;
     }

@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
 import android.view.Menu;
@@ -19,17 +21,40 @@ import com.example.myapplication.fragments.MovimientosFragment;
 import com.example.myapplication.fragments.PrediccionesFragment;
 import com.example.myapplication.fragments.PresupuestoNuevoFragment;
 import com.example.myapplication.fragments.ProyectoNuevoFragment;
+import com.example.myapplication.view_models.CategoriaViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
     private FloatingActionButton fab;
 
+    //ViewModel
+    private CategoriaViewModel cat_vm;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ArrayList<Categoria> lista_default = new ArrayList<>();
+        lista_default.add(new Categoria(1, R.drawable.ic_money,"Comida y Bebida","2 Subcat",255,79,55));
+        lista_default.add(new Categoria(2,R.drawable.ic_money,"Transporte","4 Subcat",52,73,94));
+        lista_default.add(new Categoria(3,R.drawable.ic_money,"Vivienda","3 Subcat", 211,84,0));
+        lista_default.add(new Categoria(4,R.drawable.ic_money,"Compras","5 Subcat",155,89,182));
+        lista_default.add(new Categoria(5,R.drawable.ic_money,"Ahorros","1 Subcat",52,152,219));
+        lista_default.add(new Categoria(6,R.drawable.ic_money,"Ingresos","2 Subcat",39,174,96));
+
+        cat_vm = new ViewModelProvider(this).get(CategoriaViewModel.class);
+        cat_vm.setLista_cat(lista_default);
+        cat_vm.getLista_cat().observe(this,cats ->{
+
+            System.out.println("Modificado");
+        });
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Inicio");
@@ -107,4 +132,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
     }
+
 }
