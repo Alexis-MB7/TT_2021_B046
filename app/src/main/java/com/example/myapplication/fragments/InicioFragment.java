@@ -12,7 +12,9 @@ import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.Categoria;
@@ -66,6 +68,14 @@ public class InicioFragment extends Fragment {
 
         Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
         toolbar.setTitle("Inicio");
+
+        DrawerLayout drawer = getActivity().findViewById(R.id.drawer_layout);
+        NavigationView navigationView = getActivity().findViewById(R.id.nav_view);
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(getActivity(),drawer, toolbar,R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
 
         pieChart = view.findViewById(R.id.chart_inicio);
         setupPieChart();

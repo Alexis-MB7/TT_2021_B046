@@ -1,24 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <View
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="7"/>
+        android:layout_weight="7" />
 
-    <ImageView
+    <androidx.cardview.widget.CardView
         android:layout_width="130dp"
         android:layout_height="130dp"
         android:layout_gravity="center"
-        android:src="@drawable/ic_money"/>
+        app:cardBackgroundColor="@android:color/transparent"
+        app:cardCornerRadius="250dp"
+        app:cardElevation="0dp">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            app:cardCornerRadius="250dp">
+
+            <ImageView
+                android:id="@+id/imagenNewCat"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_money" />
+
+        </androidx.cardview.widget.CardView>
+    </androidx.cardview.widget.CardView>
+
+
     <View
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="7"/>
+        android:layout_weight="7" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout_cat_nombre"
@@ -30,9 +51,9 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/transparent"
             android:hint="Nombre"
-            android:inputType="text"
-            android:background="@color/transparent"/>
+            android:inputType="text" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -45,64 +66,60 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="70"
+            android:layout_weight="60"
             android:orientation="vertical">
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="25"/>
+                android:layout_weight="20" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="10"
+                android:layout_weight="15"
                 android:text="Tipo"
-                android:textStyle="italic"
-                android:textSize="12sp"/>
+                android:textSize="12sp"
+                android:textStyle="italic" />
 
             <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/spinnerTipoCat"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="40"
-                android:id="@+id/spinnerTipoCat"
-                />
+                android:layout_weight="40" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="25"/>
+                android:layout_weight="25" />
 
 
         </LinearLayout>
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="15"
             android:layout_gravity="center_vertical|end"
-            android:textAlignment="textEnd"
-            android:text="Color:"/>
+            android:layout_weight="20"
+            android:text="Color:"
+            android:textAlignment="textEnd" />
 
-        <com.google.android.material.button.MaterialButton
-            style="@style/Widget.AppCompat.Button.Borderless"
+        <ImageButton
+            android:id="@+id/buttonColor"
             android:layout_width="0dp"
             android:layout_height="50dp"
-            android:layout_weight="15"
             android:layout_gravity="center_vertical"
-            android:backgroundTint="@color/transparent"
-            app:cornerRadius="8dp"
-            app:rippleColor="#33AAAAAA"
-            app:strokeColor="@color/black"
-            app:strokeWidth="2dp" />
+            android:layout_margin="3dp"
+            android:layout_weight="20"
+            android:src="@drawable/ic_color_select"
+            app:cornerRadius="12dp" />
 
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="40"/>
-
-
+        android:layout_weight="40" />
 
 
 </LinearLayout>

@@ -12,4 +12,10 @@
         <item>Años</item>
     </string-array>
 
+    <string-array name="tipos">
+        <item>Gastos</item>
+        <item>Ingresos</item>
+        <item>Ahorros</item>
+    </string-array>
+
 </resources>

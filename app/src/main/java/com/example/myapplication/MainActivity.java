@@ -12,11 +12,13 @@ import androidx.lifecycle.ViewModelProvider;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.example.myapplication.fragments.CategoriasFragment;
 import com.example.myapplication.fragments.CuentaFragment;
 import com.example.myapplication.fragments.EstadisticasFragment;
 import com.example.myapplication.fragments.InicioFragment;
+import com.example.myapplication.fragments.MovimientoAddFragment;
 import com.example.myapplication.fragments.MovimientosFragment;
 import com.example.myapplication.fragments.PrediccionesFragment;
 import com.example.myapplication.fragments.PresupuestoNuevoFragment;
@@ -29,7 +31,8 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
-    private FloatingActionButton fab;
+    public static FloatingActionButton fab;
+    int mov_flag = 0;
 
     //ViewModel
     private CategoriaViewModel cat_vm;
@@ -73,6 +76,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             navigationView.setCheckedItem(R.id.nav_inicio);
         }
         fab = findViewById(R.id.fab_main);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fab.hide();
+                mov_flag = 1;
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MovimientoAddFragment()).commit();
+            }
+        });
+
+
     }
 
     @Override
@@ -84,42 +97,43 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        switch(item.getItemId()){
-            case R.id.nav_inicio:
-                fab.show();
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new InicioFragment()).commit();
-                break;
-            case R.id.nav_categorias:
-                fab.show();
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CategoriasFragment()).commit();
-                break;
-            case R.id.nav_estadisticas:
-                fab.show();
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new EstadisticasFragment()).commit();
-                break;
-            case R.id.nav_movimientos:
-                fab.show();
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MovimientosFragment()).commit();
-                break;
-            case R.id.nav_cuenta:
-                fab.hide();
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CuentaFragment()).commit();
-                break;
-            case R.id.nav_Predicciones:
-                fab.show();
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PrediccionesFragment()).commit();
-                break;
-            case R.id.nav_proyectos:
-                fab.hide();
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProyectoNuevoFragment()).commit();
-                break;
-            case R.id.nav_presupuesto:
-                fab.hide();
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PresupuestoNuevoFragment()).commit();
-                break;
+            switch (item.getItemId()) {
+                case R.id.nav_inicio:
+                    fab.show();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new InicioFragment()).commit();
+                    break;
+                case R.id.nav_categorias:
+                    fab.show();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CategoriasFragment()).commit();
+                    break;
+                case R.id.nav_estadisticas:
+                    fab.show();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new EstadisticasFragment()).commit();
+                    break;
+                case R.id.nav_movimientos:
+                    fab.show();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MovimientosFragment()).commit();
+                    break;
+                case R.id.nav_cuenta:
+                    fab.hide();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CuentaFragment()).commit();
+                    break;
+                case R.id.nav_Predicciones:
+                    fab.show();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PrediccionesFragment()).commit();
+                    break;
+                case R.id.nav_proyectos:
+                    fab.hide();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProyectoNuevoFragment()).commit();
+                    break;
+                case R.id.nav_presupuesto:
+                    fab.hide();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PresupuestoNuevoFragment()).commit();
+                    break;
 
-        }
-        drawer.closeDrawer(GravityCompat.START);
+            }
+            drawer.closeDrawer(GravityCompat.START);
+
         return true;
     }
 
@@ -127,9 +141,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START)){
             drawer.closeDrawer(GravityCompat.START);
-        } else {
+        } else{
             super.onBackPressed();
         }
+
+    }
+
+    public static void showFab(){
+        fab.show();;
 
     }
 

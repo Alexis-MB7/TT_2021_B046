@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="15"
+        android:orientation="horizontal">
+
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/nuevoMov_monto"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="70">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/transparent"
+                    android:hint="Monto"
+                    android:inputType="numberDecimal" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="30"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="10"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="20"
+                android:text="Tipo:" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="5"/>
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/spinnerTipoCat"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="40" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="20"/>
+
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/nuevoMov_categoria"
+        android:layout_width="300dp"
+        android:layout_height="0dp"
+        android:layout_weight="13"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:background="@drawable/style_border">
+
+
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginEnd="10dp"
+            android:layout_gravity="center_vertical"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardCornerRadius="250dp"
+            app:cardElevation="0dp">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                app:cardCornerRadius="250dp">
+
+                <ImageView
+                    android:id="@+id/nuevoMov_imagenCat"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="5dp"
+                    android:background="@color/gray" />
+
+            </androidx.cardview.widget.CardView>
+        </androidx.cardview.widget.CardView>
+
+
+
+            <TextView
+                android:id="@+id/nuevoMov_nombreCat"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="60"
+                android:layout_gravity="center_vertical"
+                android:gravity="start|center"
+                android:text="Seleccione una categoria"
+                android:textStyle="bold" />
+
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="15"
+        android:orientation="horizontal">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout_nuevoMov_fecha"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="50"
+            android:layout_margin="5dp"
+            android:clickable="true"
+            app:endIconDrawable="@drawable/ic_predicciones"
+            app:endIconMode="custom"
+            app:endIconCheckable="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textInputEdit_nuevoMov_fecha"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Fecha"
+                android:inputType="text"
+                android:clickable="true"
+                android:focusable="false"
+                android:background="@color/transparent"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout_nuevoMov_hora"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="50"
+            android:layout_margin="5dp"
+            android:clickable="true"
+            app:endIconDrawable="@drawable/ic_tiempo"
+            app:endIconMode="custom"
+            app:endIconCheckable="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textInputEdit_nuevoMov_hora"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Hora"
+                android:inputType="text"
+                android:clickable="true"
+                android:focusable="false"
+                android:background="@color/transparent"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="20"
+        android:hint="Descripción"
+        android:paddingStart="15dp"
+        android:textStyle="normal"
+        android:inputType="text|textMultiLine"
+        android:gravity="top"
+        android:background="@drawable/style_border"
+        android:layout_margin="10dp"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="40"
+        />
+
+</LinearLayout>
