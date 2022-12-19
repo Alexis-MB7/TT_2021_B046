@@ -16,4 +16,10 @@
         app:showAsAction="always"
         android:icon="@drawable/ic_guardar"/>
 
+    <item android:id="@+id/eliminar"
+        android:title="Eliminar"
+        app:showAsAction="always"
+        android:visible="false"
+        android:icon="@drawable/ic_eliminar"/>
+
 </menu>

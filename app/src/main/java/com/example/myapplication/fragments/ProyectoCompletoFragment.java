@@ -7,10 +7,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
-import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,7 +17,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.Categoria;
 import com.example.myapplication.Movimiento;
-import com.example.myapplication.ProyectoAdapter;
+import com.example.myapplication.adapters.ProyectoAdapter;
 import com.example.myapplication.R;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
@@ -38,7 +36,7 @@ public class ProyectoCompletoFragment extends Fragment {
     Map<String, List<Movimiento> > list_proyecto;
     ExpandableListView expandableListView;
     ExpandableListAdapter expandableListAdapter;
-    Categoria cat = new Categoria(1,R.drawable.ic_money,"Comida y Bebida",null,255,79,55);
+    Categoria cat = new Categoria(1,R.drawable.ic_money,"Comida y Bebida",255,79,55,0);
     private LineChart lineChart;
 
     @Override

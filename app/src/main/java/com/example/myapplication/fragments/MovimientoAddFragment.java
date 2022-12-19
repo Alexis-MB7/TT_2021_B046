@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -14,7 +15,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -26,33 +30,44 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.myapplication.Categoria;
-import com.example.myapplication.CategoriaAdapter;
+import com.example.myapplication.adapters.CategoriaAdapter;
 import com.example.myapplication.MainActivity;
 import com.example.myapplication.Movimiento;
 import com.example.myapplication.R;
 import com.example.myapplication.view_models.CategoriaViewModel;
+import com.example.myapplication.view_models.MovimientoViewModel;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-public class MovimientoAddFragment extends Fragment{
-    Movimiento mov;
+public class MovimientoAddFragment extends Fragment {
+    ArrayList<Movimiento> movimientoList;
+    MovimientoViewModel movs_vm;
+
     TextInputLayout textInputLayout_name;
     EditText editText_name;
     TextInputLayout textInputLayout_date;
     EditText editText_date;
     TextInputLayout textInputLayout_time;
     EditText editText_time;
+    EditText editText_desc;
     LinearLayout cat_container;
 
     List<Categoria> categoriaList;
     CategoriaViewModel cats_vm;
+    Categoria cat;
+    ImageView catImage;
+    TextView catText;
+    Spinner spinner;
+    int cat_flag = 0;
 
-    int hour,minute;
+    int hour, minute;
     int año, mes, dia;
-
+    String desc;
 
 
     @Override
@@ -70,6 +85,7 @@ public class MovimientoAddFragment extends Fragment{
         item2.setVisible(false);
         MenuItem item3 = menu.findItem(R.id.guardar);
 
+        editText_desc = getActivity().findViewById(R.id.nuevoMov_desc);
         textInputLayout_name = getActivity().findViewById(R.id.nuevoMov_monto);
         editText_name = textInputLayout_name.getEditText();
 
@@ -84,40 +100,62 @@ public class MovimientoAddFragment extends Fragment{
             public boolean onMenuItemClick(MenuItem menuItem) {
                 int toast = 0;
 
-                if(TextUtils.isEmpty(editText_name.getText())) {
+                if (TextUtils.isEmpty(editText_name.getText())) {
                     textInputLayout_name.setError("-");
                     toast = 1;
-                }else{
+                } else {
                     textInputLayout_name.setError(null);
                 }
 
-                if(TextUtils.isEmpty(editText_date.getText())){
+                if (TextUtils.isEmpty(editText_date.getText())) {
                     textInputLayout_date.setError("-");
                     toast = 1;
-                }else{
+                } else {
                     textInputLayout_date.setError(null);
                 }
 
-                if(TextUtils.isEmpty(editText_time.getText())){
+                if (TextUtils.isEmpty(editText_time.getText())) {
                     textInputLayout_time.setError("-");
                     toast = 1;
-                }else{
+                } else {
                     textInputLayout_time.setError(null);
                 }
 
-                if(toast == 1) {
-                    Toast.makeText(getActivity(), "Ingrese un nombre", Toast.LENGTH_SHORT).show();
-                    toast = 0;
-                }else{
-                    System.out.println("*************Se guardo*************");
+                if (cat_flag == 0) {
+                    catText.setTextColor(Color.RED);
+                    toast = 1;
+                } else {
+                    catText.setTextColor(Color.BLACK);
+                }
 
-                    // Categoria new_cat = new Categoria(categoriaList.size()+1,R.drawable.ic_money, editText.getText().toString() , spinner.getSelectedItem().toString(), color[0], color[1],color[2]);
-                    // guardarCategoria(new_cat);
+                if (TextUtils.isEmpty(editText_desc.getText())) {
+                    desc = "";
+                } else {
+                    desc = String.valueOf(editText_desc.getText());
+                }
+
+                if (toast == 1) {
+                    Toast.makeText(getActivity(), "Ingrese correctamente los datos", Toast.LENGTH_SHORT).show();
+                    toast = 0;
+                } else {
+                    System.out.println("*************Se guardo*************");
+                    Movimiento new_mov = new Movimiento(movimientoList.size() + 1, Float.parseFloat(String.valueOf(editText_name.getText())), desc, cat, hour, minute, año, mes, dia);
+                    guardarMovimiento(new_mov);
                 }
 
                 return false;
             }
         });
+    }
+
+    private void guardarMovimiento(Movimiento mov) {
+
+        movimientoList.add(mov);
+        movs_vm.setLista_mov(movimientoList);
+        Toast.makeText(getActivity(), "Se guardo el movimiento", Toast.LENGTH_SHORT).show();
+        FloatingActionButton fab = getActivity().findViewById(R.id.fab_main);
+        fab.show();
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new InicioFragment()).commit();
 
     }
 
@@ -137,6 +175,9 @@ public class MovimientoAddFragment extends Fragment{
         cats_vm = new ViewModelProvider(requireActivity()).get(CategoriaViewModel.class);
         categoriaList = cats_vm.getLista_cat().getValue();
 
+        movs_vm = new ViewModelProvider(requireActivity()).get(MovimientoViewModel.class);
+        movimientoList = movs_vm.getLista_mov().getValue();
+
         Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
         toolbar.setTitle("Nuevo Movimiento");
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -148,6 +189,11 @@ public class MovimientoAddFragment extends Fragment{
             }
         });
 
+        spinner = (Spinner) getActivity().findViewById(R.id.spinnerTipoCat);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.tipos, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
         textInputLayout_time = getActivity().findViewById(R.id.textInputLayout_nuevoMov_hora);
         editText_time = textInputLayout_time.getEditText();
         textInputLayout_time.setEndIconOnClickListener(new View.OnClickListener() {
@@ -156,7 +202,6 @@ public class MovimientoAddFragment extends Fragment{
                 showTimePicker(editText_time);
             }
         });
-
         textInputLayout_time.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -178,7 +223,6 @@ public class MovimientoAddFragment extends Fragment{
                 showDatePicker(editText_date);
             }
         });
-
         textInputLayout_date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -193,10 +237,13 @@ public class MovimientoAddFragment extends Fragment{
         });
 
         cat_container = getActivity().findViewById(R.id.nuevoMov_categoria);
+        catImage = getActivity().findViewById(R.id.nuevoMov_imagenCat);
+        catText = getActivity().findViewById(R.id.nuevoMov_nombreCat);
         cat_container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showCategoriaPicker(categoriaList);
+
             }
         });
     }
@@ -216,8 +263,13 @@ public class MovimientoAddFragment extends Fragment{
         builderSingle.setAdapter(adapter, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                String strName = lista.get(which).getNombre();
-                System.out.println(strName);
+                cat = lista.get(which);
+                cat_flag = 1;
+                System.out.println(cat.getNombre());
+                catImage.setImageResource(cat.getImage());
+                catImage.setBackgroundColor(Color.rgb(cat.getColorR(), cat.getColorG(), cat.getColorB()));
+                catText.setText(cat.getNombre());
+
             }
         });
         builderSingle.show();
@@ -226,13 +278,12 @@ public class MovimientoAddFragment extends Fragment{
 
     private void showTimePicker(EditText text) {
 
-        TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener()
-        {
+        TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                 hour = selectedHour;
                 minute = selectedMinute;
-                text.setText(String.format(Locale.getDefault(), "%02d:%02d",hour, minute));
+                text.setText(String.format(Locale.getDefault(), "%02d:%02d", hour, minute));
             }
         };
 
@@ -242,10 +293,10 @@ public class MovimientoAddFragment extends Fragment{
 
     }
 
-    private void showDatePicker(EditText text){
-        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener(){
+    private void showDatePicker(EditText text) {
+        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
-            public void onDateSet(DatePicker datePicker, int year, int month, int day){
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 año = year;
                 dia = day;
                 month = month + 1;

@@ -21,12 +21,13 @@ public class Movimiento {
 
     }
 
-    public Movimiento(int id, float monto, String tipo, String descripcion, Categoria cat, int horas, int minutos, int año, int mes, int dia) {
+    public Movimiento(int id, float monto, String descripcion, Categoria cat, int horas, int minutos, int año, int mes, int dia) {
         this.id = id;
         this.monto = monto;
         this.descripcion = descripcion;
         this.cat = cat;
         this.tipo = tipo;
+        fechaCompleta = Calendar.getInstance();
         fechaCompleta.set(año,mes,dia,horas,minutos);
     }
 

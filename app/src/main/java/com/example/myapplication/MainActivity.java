@@ -9,11 +9,13 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.example.myapplication.bd.BD_helper;
 import com.example.myapplication.fragments.CategoriasFragment;
 import com.example.myapplication.fragments.CuentaFragment;
 import com.example.myapplication.fragments.EstadisticasFragment;
@@ -24,6 +26,7 @@ import com.example.myapplication.fragments.PrediccionesFragment;
 import com.example.myapplication.fragments.PresupuestoNuevoFragment;
 import com.example.myapplication.fragments.ProyectoNuevoFragment;
 import com.example.myapplication.view_models.CategoriaViewModel;
+import com.example.myapplication.view_models.MovimientoViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
@@ -33,9 +36,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout drawer;
     public static FloatingActionButton fab;
     int mov_flag = 0;
+    String[] tipos;
 
     //ViewModel
     private CategoriaViewModel cat_vm;
+    private MovimientoViewModel mov_vm;
 
 
 
@@ -44,19 +49,36 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ArrayList<Categoria> lista_default = new ArrayList<>();
-        lista_default.add(new Categoria(1, R.drawable.ic_money,"Comida y Bebida","2 Subcat",255,79,55));
-        lista_default.add(new Categoria(2,R.drawable.ic_money,"Transporte","4 Subcat",52,73,94));
-        lista_default.add(new Categoria(3,R.drawable.ic_money,"Vivienda","3 Subcat", 211,84,0));
-        lista_default.add(new Categoria(4,R.drawable.ic_money,"Compras","5 Subcat",155,89,182));
-        lista_default.add(new Categoria(5,R.drawable.ic_money,"Ahorros","1 Subcat",52,152,219));
-        lista_default.add(new Categoria(6,R.drawable.ic_money,"Ingresos","2 Subcat",39,174,96));
+        tipos = getResources().getStringArray(R.array.tipos);
+
+        BD_helper bd_helper = new BD_helper(this);
+        SQLiteDatabase bd = bd_helper.getWritableDatabase();
+        if(bd != null){
+            System.out.println("Se creo la BD");
+        }else{
+            System.out.println("Error al crear la BD");
+        }
+
+
 
         cat_vm = new ViewModelProvider(this).get(CategoriaViewModel.class);
-        cat_vm.setLista_cat(lista_default);
+        //cat_vm.setLista_cat(lista_default);
+        cat_vm.initLista_cat(this);
         cat_vm.getLista_cat().observe(this,cats ->{
+            System.out.println("Categorias modificadas");
+        });
 
-            System.out.println("Modificado");
+        ArrayList<Categoria> lista_default = cat_vm.getLista_cat().getValue();
+
+        ArrayList<Movimiento> movs_default = new ArrayList<>();
+        movs_default.add(new Movimiento(1,10.5f,"Papitas",lista_default.get(0),12,35,2022,12,10));
+        movs_default.add(new Movimiento(2,150.00f,"Hamburguesas",lista_default.get(0),14,15,2022,12,10));
+        movs_default.add(new Movimiento(3,27.5f,"Refresco",lista_default.get(0),12,15,2022,12,10));
+
+        mov_vm = new ViewModelProvider(this).get(MovimientoViewModel.class);
+        mov_vm.setLista_mov(movs_default);
+        mov_vm.getLista_mov().observe(this, movs ->{
+            System.out.println("Movimientos modificados");
         });
 
         Toolbar toolbar = findViewById(R.id.toolbar);

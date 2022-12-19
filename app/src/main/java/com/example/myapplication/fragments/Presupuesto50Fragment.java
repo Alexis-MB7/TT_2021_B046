@@ -17,8 +17,8 @@ import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.Categoria;
 import com.example.myapplication.Movimiento;
-import com.example.myapplication.MovimientoAdapter;
-import com.example.myapplication.PresupuestoAdapter;
+import com.example.myapplication.adapters.MovimientoAdapter;
+import com.example.myapplication.adapters.PresupuestoAdapter;
 import com.example.myapplication.R;
 
 import java.util.ArrayList;
@@ -36,7 +36,7 @@ public class Presupuesto50Fragment extends Fragment {
     Map<String, List<Movimiento> > expandableList_proyecto;
     ExpandableListView expandableListView;
     ExpandableListAdapter expandableListAdapter;
-    Categoria cat = new Categoria(1,R.drawable.ic_money,"Comida y Bebida",null,255,79,55);
+    Categoria cat = new Categoria(1,R.drawable.ic_money,"Comida y Bebida",255,79,55,0);
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

@@ -16,11 +16,13 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.myapplication.Categoria;
 import com.example.myapplication.Movimiento;
-import com.example.myapplication.MovimientoAdapter;
+import com.example.myapplication.adapters.MovimientoAdapter;
 import com.example.myapplication.R;
+import com.example.myapplication.view_models.MovimientoViewModel;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
@@ -38,6 +40,9 @@ public class InicioFragment extends Fragment {
     ListView listViewMovimientos;
     List<Movimiento> movimientoList;
     ImageButton imageButton;
+
+    List<Movimiento> movimientosList;
+    MovimientoViewModel movs_vm;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,6 +74,9 @@ public class InicioFragment extends Fragment {
         Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
         toolbar.setTitle("Inicio");
 
+        movs_vm = new ViewModelProvider(requireActivity()).get(MovimientoViewModel.class);
+        movimientosList = movs_vm.getLista_mov().getValue();
+
         DrawerLayout drawer = getActivity().findViewById(R.id.drawer_layout);
         NavigationView navigationView = getActivity().findViewById(R.id.nav_view);
 
@@ -76,13 +84,12 @@ public class InicioFragment extends Fragment {
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-
         pieChart = view.findViewById(R.id.chart_inicio);
         setupPieChart();
         loadPieChartData();
 
         listViewMovimientos = (ListView) view.findViewById(R.id.listViewInicio);
-        MovimientoAdapter adapter = new MovimientoAdapter(getActivity(), fillData());
+        MovimientoAdapter adapter = new MovimientoAdapter(getActivity(), movimientosList);
         listViewMovimientos.setAdapter(adapter);
 
         imageButton = (ImageButton) view.findViewById(R.id.buttonInicio);
@@ -96,24 +103,11 @@ public class InicioFragment extends Fragment {
         });
     }
 
-    private List<Movimiento> fillData() {
-        Categoria cat = new Categoria(1,R.drawable.ic_money,"Comida y Bebida",null,255,79,55);
-
-        movimientoList = new ArrayList<>();
-
-        movimientoList.add(new Movimiento(1,10.50f,"Papitas", cat));
-        movimientoList.add(new Movimiento(1,30.0f,"Refresco", cat));
-        movimientoList.add(new Movimiento(1,46.50f,"Quesadillas", cat));
-
-        return movimientoList;
-    }
-
     private void setupPieChart(){
         pieChart.setDrawHoleEnabled(true);
         pieChart.setUsePercentValues(true);
         pieChart.setEntryLabelTextSize(12);
         pieChart.setEntryLabelColor(Color.BLACK);
-        pieChart.setCenterText("Total:\n$548.5");
         pieChart.setCenterTextSize(20);
         pieChart.getDescription().setEnabled(false);
         pieChart.getLegend().setEnabled(false);
@@ -121,12 +115,28 @@ public class InicioFragment extends Fragment {
     }
 
     private void loadPieChartData(){
+        ArrayList<Movimiento> gastosList = new ArrayList<>();
+        ArrayList<Categoria> gastosCats = new ArrayList<>();
+
+        movimientosList.forEach(movimiento -> {
+            if(movimiento.getCat().getTipo_cat() == 0){
+                gastosList.add(movimiento);
+                if(!gastosCats.contains(movimiento.getCat()))
+                    gastosCats.add(movimiento.getCat());
+            }
+        });
+
         ArrayList<PieEntry> entries = new ArrayList<>();
-        entries.add(new PieEntry(0.2f,"Comida y Bebida"));
-        entries.add(new PieEntry(0.3f,"Transporte"));
-        entries.add(new PieEntry(0.15f,"Vivienda"));
-        entries.add(new PieEntry(0.18f,"Compras"));
-        entries.add(new PieEntry(0.17f,"Ahorros"));
+        float[] totales = new float[gastosCats.size()];
+
+        for(int c = 0; c < gastosCats.size(); c++) {
+            for(int d = 0; d < gastosList.size(); d++) {
+                if(gastosList.get(d).getCat().equals(gastosCats.get(c))){
+                    totales[c] = totales[c] + gastosList.get(d).getMonto();
+                };
+            }
+            entries.add(new PieEntry(totales[c],gastosCats.get(c).getNombre()));
+        }
 
         ArrayList<Integer> colors = new ArrayList<>();
         for(int color: ColorTemplate.MATERIAL_COLORS){
@@ -147,8 +157,20 @@ public class InicioFragment extends Fragment {
 
         pieChart.setData(pie_data);
         pieChart.invalidate();
-
+        pieChart.setCenterText("Total:\n" + sumaTextual(totales));
         pieChart.animateY(1000, Easing.EaseInOutQuad);
 
+    }
+
+    private String sumaTextual(float[] f) {
+        float total = 0;
+        String s;
+
+        for (int i = 0; i < f.length; i++){
+            total = total + f[i];
+        }
+
+        s = Float.toString(total);
+        return s;
     }
 }

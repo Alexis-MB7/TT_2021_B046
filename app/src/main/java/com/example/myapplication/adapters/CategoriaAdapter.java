@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.adapters;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -8,6 +8,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.myapplication.Categoria;
+import com.example.myapplication.R;
 
 import java.util.List;
 import java.util.Random;
@@ -48,7 +51,7 @@ public class CategoriaAdapter extends BaseAdapter {
         if (view == null){
             view = LayoutInflater.from(context).inflate(R.layout.listview_categorias, null);
         }
-
+            String[] tipos = view.getResources().getStringArray(R.array.tipos);
             imageViewCategoria = view.findViewById(R.id.imageView_1);
             textViewNombre = view.findViewById(R.id.textViewNombre);
             textViewSubcategorias = view.findViewById(R.id.textViewSubcategorias);
@@ -56,7 +59,7 @@ public class CategoriaAdapter extends BaseAdapter {
             imageViewCategoria.setBackgroundColor(Color.rgb(cat.colorR,cat.colorG,cat.colorB));
             imageViewCategoria.setImageResource(cat.image);
             textViewNombre.setText(cat.nombre);
-            textViewSubcategorias.setText(cat.subcat);
+            textViewSubcategorias.setText(tipos[cat.tipo_cat]);
 
         return view;
     }

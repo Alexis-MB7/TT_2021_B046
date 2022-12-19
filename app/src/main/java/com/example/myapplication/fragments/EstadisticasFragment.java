@@ -20,7 +20,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.Categoria;
 import com.example.myapplication.Movimiento;
-import com.example.myapplication.MovimientoAdapter;
+import com.example.myapplication.adapters.MovimientoAdapter;
 import com.example.myapplication.R;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
@@ -122,8 +122,8 @@ public class EstadisticasFragment extends Fragment {
     }
 
     private List<Movimiento> fillData() {
-        Categoria cat = new Categoria(1,R.drawable.ic_money,"Comida y Bebida",null,255,79,55);
-        Categoria cat2 = new Categoria(3,R.drawable.ic_money,"Vivienda",null, 211,84,0);
+        Categoria cat = new Categoria(1,R.drawable.ic_money,"Comida y Bebida",255,79,55,0);
+        Categoria cat2 = new Categoria(3,R.drawable.ic_money,"Vivienda",211,84,0,0);
 
         movimientoList = new ArrayList<>();
 

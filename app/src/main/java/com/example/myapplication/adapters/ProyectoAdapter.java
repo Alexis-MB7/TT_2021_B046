@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.adapters;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -10,6 +10,9 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.myapplication.Movimiento;
+import com.example.myapplication.R;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;

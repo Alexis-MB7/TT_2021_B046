@@ -2,15 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingVertical="15dp"
     android:background="@color/transparent"
     >
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@color/transparent">
+        android:background="@color/transparent"
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
@@ -60,7 +59,7 @@
         <ListView
             android:id="@+id/listViewInicio"
             android:layout_width="400dp"
-            android:layout_height="300dp"
+            android:layout_height="315dp"
             android:layout_gravity="bottom|center"
             android:layout_marginTop="10dp" />
 

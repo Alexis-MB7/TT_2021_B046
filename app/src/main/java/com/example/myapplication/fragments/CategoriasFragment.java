@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -14,19 +15,19 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.myapplication.CategoriaAdapter;
+import com.example.myapplication.adapters.CategoriaAdapter;
 import com.example.myapplication.Categoria;
 import com.example.myapplication.R;
 import com.example.myapplication.view_models.CategoriaViewModel;
-import com.google.android.material.navigation.NavigationView;
+import com.example.myapplication.view_models.OptionsViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CategoriasFragment extends Fragment {
     ListView listViewCategorias;
     List<Categoria> categoriaList;
     CategoriaViewModel cats_vm;
+    OptionsViewModel opts_vm;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,6 +63,7 @@ public class CategoriasFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        opts_vm = new ViewModelProvider(requireActivity()).get(OptionsViewModel.class);
         cats_vm = new ViewModelProvider(requireActivity()).get(CategoriaViewModel.class);
         categoriaList = cats_vm.getLista_cat().getValue();
 
@@ -71,22 +73,14 @@ public class CategoriasFragment extends Fragment {
         listViewCategorias = (ListView) view.findViewById(R.id.listViewCategorias);
         CategoriaAdapter adapter = new CategoriaAdapter(getActivity(), categoriaList);
         listViewCategorias.setAdapter(adapter);
+        listViewCategorias.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int pos, long id) {
+                opts_vm.setOptions_cat(categoriaList.get(pos));
+                opts_vm.setOptions_int(pos+1);
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CategoriasEditFragment()).commit();
+            }
+        });
 
-    }
-
-    private List<Categoria> fillData() {
-        categoriaList = new ArrayList<>();
-
-
-
-        categoriaList.add(new Categoria(1,R.drawable.ic_money,"Comida y Bebida","2 Subcat",255,79,55));
-        categoriaList.add(new Categoria(2,R.drawable.ic_money,"Transporte","4 Subcat",52,73,94));
-        categoriaList.add(new Categoria(3,R.drawable.ic_money,"Vivienda","3 Subcat", 211,84,0));
-        categoriaList.add(new Categoria(4,R.drawable.ic_money,"Compras","5 Subcat",155,89,182));
-        categoriaList.add(new Categoria(5,R.drawable.ic_money,"Ahorros","1 Subcat",52,152,219));
-        categoriaList.add(new Categoria(6,R.drawable.ic_money,"Ingresos","2 Subcat",39,174,96));
-
-
-        return categoriaList;
     }
 }
