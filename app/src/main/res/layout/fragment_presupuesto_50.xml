@@ -52,7 +52,7 @@
         android:layout_height="0dp"
         android:layout_weight="49"
         android:textSize="24sp"
-        android:text="Ingresos Fijos"
+        android:text="Gastos"
         android:gravity="center_vertical"
         android:textStyle="bold"
         android:paddingStart="10dp"/>

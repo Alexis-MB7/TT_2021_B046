@@ -21,10 +21,10 @@ import java.util.Map;
 public class PresupuestoAdapter extends BaseExpandableListAdapter {
     private Context context;
     private List<String> groupList;
-    private int[] montoList;
+    private float[] montoList;
     private Map<String, List<Movimiento> > colection;
 
-    public PresupuestoAdapter(Context context, List<String> groupList, int[] montoList, Map<String, List<Movimiento> > colection) {
+    public PresupuestoAdapter(Context context, List<String> groupList, float[] montoList, Map<String, List<Movimiento> > colection) {
         this.context = context;
         this.groupList = groupList;
         this.colection = colection;

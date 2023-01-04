@@ -10,7 +10,7 @@ import com.example.myapplication.R;
 
 public class BD_helper extends SQLiteOpenHelper {
 
-    private static final int BD_VERSION = 9;
+    private static final int BD_VERSION = 10;
     private static final String BD_NOMBRE = "TT.db";
 
     public String tabla_categoria_query = "CREATE TABLE `categoria` (" +
@@ -43,6 +43,17 @@ public class BD_helper extends SQLiteOpenHelper {
                 "'hora_mov' INTEGER NOT NULL," +
                 "'minuto_mov' INTEGER NOT NULL);";
 
+    public String tabla_movimiento_fijo_query =
+                "CREATE TABLE `movimientos_fijos` (" +
+                "`idmovimientos_fijos` INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "`monto` REAL NOT NULL," +
+                "`idcat` INTEGER NOT NULL," +
+                "'año_mov' INTEGER NOT NULL," +
+                "'mes_mov' INTEGER NOT NULL," +
+                "'dia_mov' INTEGER NOT NULL," +
+                "`desc` TEXT NOT NULL," +
+                "`periodo` INTEGER NOT NULL);";
+
     public String categoriasDefault_query =
                 "INSERT INTO `categoria` ('nombre', 'imagen', 'color_R', 'color_G', 'color_B', 'idtipo_cat')" +
                 "VALUES  ('Comida y Bebida'," + Integer.toString(R.drawable.ic_money) + ",255,79,55, 0)," +
@@ -55,9 +66,10 @@ public class BD_helper extends SQLiteOpenHelper {
 
     public String movimientosDefault_query =
                 "INSERT INTO 'movimiento' ('monto_mov', 'desc_mov', 'idcat_mov', 'tipo_mov', 'año_mov', 'mes_mov', 'dia_mov', 'hora_mov', 'minuto_mov')" +
-                "VALUES (10.5, 'Papitas', 1, 1, 2023, 01, 08, 12, 35)," +
+                "VALUES (185, 'Gasolina', 2, 0, 2023, 01, 08, 12, 35)," +
                        "(150, 'Hamburguesas', 1, 1, 2023, 01, 21, 18, 45)," +
-                       "(27.5, 'Refresco', 1, 1, 2023, 02, 07, 19, 0);";
+                       "(27.5, 'Refresco', 1, 1, 2023, 02, 07, 19, 0)," +
+                       "(240, 'Ahorro Enero', 5, 3, 2023, 01, 01, 12, 0);";
 
     public BD_helper(@Nullable Context context) {
         super(context, BD_NOMBRE, null, BD_VERSION);

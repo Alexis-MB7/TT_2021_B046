@@ -35,7 +35,7 @@ public class Presupuesto50Fragment extends Fragment {
     List<Movimiento> movimientoList;
 
     List<String> group_items;
-    int[] montoList;
+    float[] montoList;
     List<Movimiento>  movimientoExpandableList;
     Map<String, List<Movimiento> > expandableList_proyecto;
     ExpandableListView expandableListView;
@@ -103,6 +103,7 @@ public class Presupuesto50Fragment extends Fragment {
         necesidadesList = new ArrayList<>();
         deseosList = new ArrayList<>();
         ahorrosList = new ArrayList<>();
+        float necesidades = 0, deseos = 0, ahorros = 0;
 
         movimientoList.forEach(movimiento -> {
             switch (movimiento.getTipo()){
@@ -112,7 +113,6 @@ public class Presupuesto50Fragment extends Fragment {
                 case 1: //Deseo
                     deseosList.add(movimiento);
                     break;
-
                 case 3: //Ahorro
                     ahorrosList.add(movimiento);
                     break;
@@ -122,6 +122,16 @@ public class Presupuesto50Fragment extends Fragment {
 
             }
         });
+
+
+        for(Movimiento mov : necesidadesList)
+            necesidades += mov.getMonto();
+
+        for(Movimiento mov : deseosList)
+            deseos += mov.getMonto();
+
+        for(Movimiento mov : ahorrosList)
+            ahorros += mov.getMonto();
 
         expandableList_proyecto = new HashMap<String, List<Movimiento> >();
         /*for (String group: group_items){
@@ -143,16 +153,15 @@ public class Presupuesto50Fragment extends Fragment {
                 expandableList_proyecto.put(group,ahorrosList);
             }
         }
+        montoList = new float[]{necesidades,deseos,ahorros};
 
     }
 
     private void createGroup() {
         group_items = new ArrayList<>();
         group_items.add("Necesidades");
-        group_items.add("Deseos ");
+        group_items.add("Deseos");
         group_items.add("Ahorros");
-
-        montoList = new int[]{150, 200, 450};
 
     }
 
