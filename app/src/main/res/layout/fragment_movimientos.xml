@@ -4,12 +4,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Abirl 2022" />
-
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -20,19 +14,4 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Marzo 2022" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/darker_gray" />
-
-        <ListView
-            android:id="@+id/mov_list_2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
 </LinearLayout>

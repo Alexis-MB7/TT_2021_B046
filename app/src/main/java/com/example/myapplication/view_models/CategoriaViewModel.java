@@ -8,7 +8,6 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.myapplication.Categoria;
-import com.example.myapplication.R;
 import com.example.myapplication.bd.BD_handler;
 
 import java.util.ArrayList;
@@ -16,7 +15,6 @@ import java.util.ArrayList;
 public class CategoriaViewModel extends ViewModel {
 
     private MutableLiveData<ArrayList<Categoria>> lista_cat = new MutableLiveData<ArrayList<Categoria>>();
-
 
     public void setLista_cat(ArrayList<Categoria> cats){
         lista_cat.setValue(cats);
@@ -34,7 +32,7 @@ public class CategoriaViewModel extends ViewModel {
     public void insertCat(Context context, Categoria cat){
         BD_handler handler = new BD_handler(context);
 
-        long id = handler.insertCategoria(cat);
+        long id = handler.createCategoria(cat);
         if(id > 0){
             ArrayList<Categoria> lista = getLista_cat().getValue();
             lista.add(cat);

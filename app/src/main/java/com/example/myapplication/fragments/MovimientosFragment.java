@@ -12,19 +12,21 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.myapplication.Categoria;
 import com.example.myapplication.Movimiento;
 import com.example.myapplication.adapters.MovimientoAdapter;
 import com.example.myapplication.R;
+import com.example.myapplication.view_models.MovimientoViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MovimientosFragment extends Fragment {
     ListView listViewMovimientos;
-    ListView listViewMovimientos2;
     List<Movimiento> movimientoList;
+    MovimientoViewModel movs_vm;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,26 +58,14 @@ public class MovimientosFragment extends Fragment {
         Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
         toolbar.setTitle("Movimientos");
 
+        movs_vm = new ViewModelProvider(requireActivity()).get(MovimientoViewModel.class);
         listViewMovimientos = (ListView) view.findViewById(R.id.mov_list_1);
-        listViewMovimientos2 = (ListView) view.findViewById(R.id.mov_list_2);
-
-        MovimientoAdapter adapter = new MovimientoAdapter(getActivity(), fillData());
+        movimientoList = movs_vm.getLista_mov().getValue();
+        MovimientoAdapter adapter = new MovimientoAdapter(getActivity(), movimientoList);
 
         listViewMovimientos.setAdapter(adapter);
-        listViewMovimientos2.setAdapter(adapter);
 
 
     }
 
-    private List<Movimiento> fillData() {
-        Categoria cat = new Categoria(1,R.drawable.ic_money,"Comida y Bebida",255,79,55, 0);
-
-        movimientoList = new ArrayList<>();
-
-        movimientoList.add(new Movimiento(1,10.50f,"Papitas", cat));
-        movimientoList.add(new Movimiento(1,30.0f,"Refresco", cat));
-        movimientoList.add(new Movimiento(1,46.50f,"Quesadillas", cat));
-
-        return movimientoList;
-    }
 }

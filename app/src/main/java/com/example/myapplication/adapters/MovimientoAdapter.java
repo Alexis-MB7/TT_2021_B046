@@ -25,6 +25,10 @@ public class MovimientoAdapter extends BaseAdapter {
         this.movimientoList = movimientoList;
     }
 
+    public void setData(List<Movimiento> movimientoList){
+        this.movimientoList = movimientoList;
+    }
+
     @Override
     public int getCount() {
         return movimientoList.size();
@@ -46,6 +50,7 @@ public class MovimientoAdapter extends BaseAdapter {
         TextView textViewCategoria;
         TextView textViewDescripcion;
         TextView textViewMonto;
+        String[] tipos = {"Necesidad","Deseo","Ingresos","Ahorros"};
 
         Movimiento mov = movimientoList.get(i);
 
@@ -61,7 +66,7 @@ public class MovimientoAdapter extends BaseAdapter {
 
         imageViewCategoria.setImageResource(mov.cat.image);
         textViewCategoria.setText(mov.cat.nombre);
-        textViewDescripcion.setText(mov.descripcion);
+        textViewDescripcion.setText(mov.descripcion + " ["+ tipos[mov.getTipo()] +"]");
         NumberFormat df = new DecimalFormat("0.00");
         textViewMonto.setText("$" + df.format(mov.monto));
 

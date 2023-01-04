@@ -41,6 +41,9 @@ public class InicioFragment extends Fragment {
     List<Movimiento> movimientoList;
     ImageButton imageButton;
 
+    ArrayList<Movimiento> gastosList = new ArrayList<>();
+    ArrayList<Categoria> gastosCats = new ArrayList<>();
+
     List<Movimiento> movimientosList;
     MovimientoViewModel movs_vm;
 
@@ -89,7 +92,7 @@ public class InicioFragment extends Fragment {
         loadPieChartData();
 
         listViewMovimientos = (ListView) view.findViewById(R.id.listViewInicio);
-        MovimientoAdapter adapter = new MovimientoAdapter(getActivity(), movimientosList);
+        MovimientoAdapter adapter = new MovimientoAdapter(getActivity(), gastosList);
         listViewMovimientos.setAdapter(adapter);
 
         imageButton = (ImageButton) view.findViewById(R.id.buttonInicio);
@@ -115,8 +118,7 @@ public class InicioFragment extends Fragment {
     }
 
     private void loadPieChartData(){
-        ArrayList<Movimiento> gastosList = new ArrayList<>();
-        ArrayList<Categoria> gastosCats = new ArrayList<>();
+
 
         movimientosList.forEach(movimiento -> {
             if(movimiento.getCat().getTipo_cat() == 0){

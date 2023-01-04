@@ -1,21 +1,33 @@
-<resources>
-    <string name="app_name">TT 2021-B046</string>
-    <string name="navigation_drawer_open">Open</string>
-    <string name="navigation_drawer_close">Close</string>
-    <string name="inicio">Inicio</string>
-    <string name="categorias">Categorias</string>
-    <string name="estadisticas">Estadísticas</string>
+        <resources>
+            <string name="app_name">TT 2021-B046</string>
+            <string name="navigation_drawer_open">Open</string>
+            <string name="navigation_drawer_close">Close</string>
+            <string name="inicio">Inicio</string>
+            <string name="categorias">Categorias</string>
+            <string name="estadisticas">Estadísticas</string>
 
-    <string-array name="periodos">
-        <item>Semanas</item>
-        <item>Meses</item>
-        <item>Años</item>
-    </string-array>
+            <string-array name="periodos">
+                <item>Semanas</item>
+                <item>Meses</item>
+                <item>Años</item>
+            </string-array>
 
-    <string-array name="tipos">
-        <item>Gastos</item>
-        <item>Ingresos</item>
-        <item>Ahorros</item>
-    </string-array>
+            <string-array name="tipos_de_categorias">
+                <item>Gastos</item>
+                <item>Ingresos</item>
+                <item>Ahorros</item>
+            </string-array>
 
-</resources>
+            <string-array name="tipos_de_movimiento">
+                <item>Necesidad</item>
+                <item>Deseo</item>
+                <item>Ingresos</item>
+                <item>Ahorros</item>
+            </string-array>
+
+            <string-array name="presuspuestos_descrip">
+                <item>El presupuesto 50/30/20 es una manera de separar tus gastos y contribuciones al ahorro tomando como base tu ingreso fijo.\nEste presupuesto supone que todos los gastos que ingresas se distribuyen entre Deseos (Lujos o gastos no indispensables), Necesidades (Gastos que necesitas para tu vida) y ahorros. </item>
+                <item>El presupuesto Zero es una manera de gestionar tus ingresos y egresos durante el mes, donde mes con mes se empieza desde cero y todos los gatsos se justifican contra los ingresos esperados y al finalizar el mes el sobrante se ahorra para iniciar el siguiente mes en 0s.</item>
+            </string-array>
+
+        </resources>

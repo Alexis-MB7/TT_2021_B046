@@ -89,7 +89,7 @@ public class CategoriasEditFragment extends Fragment {
                     public void onClick(DialogInterface dialog, int which) {
                         switch (which){
                             case DialogInterface.BUTTON_POSITIVE:
-                                borrarCategoria(opts_vm.getOptions_int().getValue());
+                                borrarCategoria(opts_vm.getOptions_cat().getValue().getId());
                                 break;
 
                             case DialogInterface.BUTTON_NEGATIVE:
@@ -100,7 +100,7 @@ public class CategoriasEditFragment extends Fragment {
                 };
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setMessage("Are you sure?").setPositiveButton("Yes", dialogClickListener)
+                builder.setMessage("¿Esta seguro de borrar la categoria?").setPositiveButton("Si", dialogClickListener)
                         .setNegativeButton("No", dialogClickListener).show();
 
 
@@ -127,8 +127,12 @@ public class CategoriasEditFragment extends Fragment {
         categoriaList = cats_vm.getLista_cat().getValue();
         Categoria selectedCat = opts_vm.getOptions_cat().getValue();
 
+        color[0] = opts_vm.getOptions_cat().getValue().getColorR();
+        color[1] = opts_vm.getOptions_cat().getValue().getColorG();
+        color[2] = opts_vm.getOptions_cat().getValue().getColorB();
+
         spinner = (Spinner) getActivity().findViewById(R.id.spinnerTipoCat);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),R.array.tipos, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),R.array.tipos_de_categorias, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setSelection(selectedCat.getTipo_cat());

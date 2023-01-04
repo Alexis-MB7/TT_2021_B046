@@ -14,9 +14,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="35dp"
-            android:layout_gravity="center"
             android:gravity="center"
-            android:text="Ultimo Mes: Gastos por Categoría"
+            android:text="Ultimos Gastos (Por Categoría)"
+            android:layout_marginStart="25dp"
             android:textSize="25sp"
             android:textStyle="bold" />
 

@@ -51,7 +51,7 @@ public class CategoriaAdapter extends BaseAdapter {
         if (view == null){
             view = LayoutInflater.from(context).inflate(R.layout.listview_categorias, null);
         }
-            String[] tipos = view.getResources().getStringArray(R.array.tipos);
+            String[] tipos = view.getResources().getStringArray(R.array.tipos_de_categorias);
             imageViewCategoria = view.findViewById(R.id.imageView_1);
             textViewNombre = view.findViewById(R.id.textViewNombre);
             textViewSubcategorias = view.findViewById(R.id.textViewSubcategorias);

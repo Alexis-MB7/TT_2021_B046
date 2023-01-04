@@ -8,7 +8,7 @@
         android:layout_width="0dp"
         android:layout_height="75dp"
         android:layout_marginEnd="5dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="5dp"
         android:layout_weight="20"
         app:cardBackgroundColor="@color/transparent"
         app:cardCornerRadius="250dp"
@@ -62,10 +62,10 @@
         android:layout_width="0dp"
         android:layout_height="75dp"
         android:layout_weight="20"
-        android:layout_marginEnd="10dp"
+        android:layout_marginEnd="5dp"
         android:gravity="center_vertical|center_horizontal"
         android:textStyle="bold"
-        android:textSize="22sp"
+        android:textSize="18sp"
         android:text="$55.00"
 
         />

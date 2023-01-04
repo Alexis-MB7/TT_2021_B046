@@ -46,11 +46,12 @@
         />
 
     <TextView
+        android:id="@+id/desc_presupuesto"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="30"
-        android:text="Aqui va una breve descripcion del, presupuesto que se ha elegido en el slector anterior"
+        android:layout_weight="40"
         android:paddingStart="15dp"
+        android:justificationMode="inter_word"
         android:textStyle="normal"
         android:background="@drawable/style_border"
         android:layout_margin="10dp"
@@ -59,7 +60,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="80"/>
+        android:layout_weight="70"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_presupuesto"

@@ -14,14 +14,18 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.myapplication.Categoria;
 import com.example.myapplication.Movimiento;
 import com.example.myapplication.adapters.MovimientoAdapter;
 import com.example.myapplication.adapters.PresupuestoAdapter;
 import com.example.myapplication.R;
+import com.example.myapplication.view_models.CategoriaViewModel;
+import com.example.myapplication.view_models.MovimientoViewModel;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,7 +40,16 @@ public class Presupuesto50Fragment extends Fragment {
     Map<String, List<Movimiento> > expandableList_proyecto;
     ExpandableListView expandableListView;
     ExpandableListAdapter expandableListAdapter;
-    Categoria cat = new Categoria(1,R.drawable.ic_money,"Comida y Bebida",255,79,55,0);
+
+    CategoriaViewModel cats_vm;
+    List<Categoria> categoriaList;
+    String[] tipos;
+
+    MovimientoViewModel movs_vm;
+    List<Movimiento> necesidadesList;
+    List<Movimiento> deseosList;
+    List<Movimiento> ahorrosList;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -68,8 +81,13 @@ public class Presupuesto50Fragment extends Fragment {
         Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
         toolbar.setTitle("Presupuesto");
 
+        cats_vm = new ViewModelProvider(requireActivity()).get(CategoriaViewModel.class);
+
+        movs_vm = new ViewModelProvider(requireActivity()).get(MovimientoViewModel.class);
+        movimientoList = movs_vm.getLista_mov().getValue();
+
         listViewMovimientos = (ListView) view.findViewById(R.id.listViewProyZero);
-        MovimientoAdapter adapter = new MovimientoAdapter(getActivity(), fillData());
+        MovimientoAdapter adapter = new MovimientoAdapter(getActivity(), movimientoList);
         listViewMovimientos.setAdapter(adapter);
 
         createGroup();
@@ -82,12 +100,31 @@ public class Presupuesto50Fragment extends Fragment {
     }
 
     private void createGroupedData() {
-        String[] necesidades = {"Categoria 1", "Categoria 2", "Categoria 3"};
-        String[] deseos = {"Categoria 4", "Categoria 5", "Categoria 6"};
-        String[] ahorros = {"Categoria 7", "Categoria 8", "Categoria 9"};
+        necesidadesList = new ArrayList<>();
+        deseosList = new ArrayList<>();
+        ahorrosList = new ArrayList<>();
+
+        movimientoList.forEach(movimiento -> {
+            switch (movimiento.getTipo()){
+                case 0: //Necesidad
+                    necesidadesList.add(movimiento);
+                    break;
+                case 1: //Deseo
+                    deseosList.add(movimiento);
+                    break;
+
+                case 3: //Ahorro
+                    ahorrosList.add(movimiento);
+                    break;
+
+                default:
+                    break;
+
+            }
+        });
 
         expandableList_proyecto = new HashMap<String, List<Movimiento> >();
-        for (String group: group_items){
+        /*for (String group: group_items){
             if(group.equals("Necesidades")){
                 loadChilds(necesidades);
             }else if(group.equals("Deseos")){
@@ -96,14 +133,17 @@ public class Presupuesto50Fragment extends Fragment {
                 loadChilds(ahorros);
             }
             expandableList_proyecto.put(group,movimientoExpandableList);
+        }*/
+        for (String group: group_items){
+            if(group.equals("Necesidades")){
+                expandableList_proyecto.put(group,necesidadesList);
+            }else if(group.equals("Deseos")){
+                expandableList_proyecto.put(group,deseosList);
+            }else if(group.equals("Ahorros")){
+                expandableList_proyecto.put(group,ahorrosList);
+            }
         }
-    }
 
-    private void loadChilds(String[] items) {
-        movimientoExpandableList = new ArrayList<>();
-        for(String str:items){
-            movimientoExpandableList.add(new Movimiento(1,10.50f,str,cat));
-        }
     }
 
     private void createGroup() {
@@ -114,16 +154,6 @@ public class Presupuesto50Fragment extends Fragment {
 
         montoList = new int[]{150, 200, 450};
 
-    }
-
-    private List<Movimiento> fillData() {
-        movimientoList = new ArrayList<>();
-
-        movimientoList.add(new Movimiento(1,10.50f,"Papitas", cat));
-        movimientoList.add(new Movimiento(1,30.0f,"Refresco", cat));
-        movimientoList.add(new Movimiento(1,46.50f,"Quesadillas", cat));
-
-        return movimientoList;
     }
 
 }

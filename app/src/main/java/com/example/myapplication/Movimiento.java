@@ -9,7 +9,7 @@ public class Movimiento {
     public Categoria cat;
 
     public Calendar fechaCompleta;
-    public String tipo;
+    public int tipo;
 
 
 
@@ -28,7 +28,7 @@ public class Movimiento {
         this.cat = cat;
         this.tipo = tipo;
         fechaCompleta = Calendar.getInstance();
-        fechaCompleta.set(año,mes,dia,horas,minutos);
+        fechaCompleta.set(año,mes-1,dia,horas,minutos);
     }
 
 
@@ -63,5 +63,21 @@ public class Movimiento {
 
     public void setCat(Categoria cat) {
         this.cat = cat;
+    }
+
+    public Calendar getFechaCompleta() {
+        return fechaCompleta;
+    }
+
+    public void setFechaCompleta(Calendar fechaCompleta) {
+        this.fechaCompleta = fechaCompleta;
+    }
+
+    public int getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(int tipo) {
+        this.tipo = tipo;
     }
 }

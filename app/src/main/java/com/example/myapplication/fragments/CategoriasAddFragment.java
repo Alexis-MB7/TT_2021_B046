@@ -93,7 +93,7 @@ public class CategoriasAddFragment extends Fragment {
         categoriaList = cats_vm.getLista_cat().getValue();
 
         spinner = (Spinner) getActivity().findViewById(R.id.spinnerTipoCat);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),R.array.tipos, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),R.array.tipos_de_categorias, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 

@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,11 +21,15 @@ import com.example.myapplication.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
 
+import org.w3c.dom.Text;
+
 public class PresupuestoNuevoFragment extends Fragment {
     private FloatingActionButton fab;
     private TextInputLayout textInputLayout;
     private EditText text;
+    private TextView textView;
     public int opt = -1;
+    public String[] descs;
     public String[] items = {"50/30/20","Zero Budget"};
 
     @Override
@@ -56,6 +61,9 @@ public class PresupuestoNuevoFragment extends Fragment {
 
         Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
         toolbar.setTitle("Presupuesto");
+
+        textView = getActivity().findViewById(R.id.desc_presupuesto);
+        descs = getResources().getStringArray(R.array.presuspuestos_descrip);
 
         textInputLayout = getActivity().findViewById(R.id.textInputLayout_presupuesto_nuevo);
         text = textInputLayout.getEditText();
@@ -103,6 +111,7 @@ public class PresupuestoNuevoFragment extends Fragment {
             public void onClick(DialogInterface dialog, int i) {
                 opt = i;
                 text.setText(items[opt]);
+                textView.setText(descs[opt]);
                 textInputLayout.setError(null);
                 dialog.dismiss();
             }

@@ -6,10 +6,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.database.sqlite.SQLiteDatabase;
+import android.hardware.biometrics.BiometricManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        tipos = getResources().getStringArray(R.array.tipos);
+        tipos = getResources().getStringArray(R.array.tipos_de_categorias);
 
         BD_helper bd_helper = new BD_helper(this);
         SQLiteDatabase bd = bd_helper.getWritableDatabase();
@@ -59,24 +59,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             System.out.println("Error al crear la BD");
         }
 
-
-
         cat_vm = new ViewModelProvider(this).get(CategoriaViewModel.class);
-        //cat_vm.setLista_cat(lista_default);
         cat_vm.initLista_cat(this);
         cat_vm.getLista_cat().observe(this,cats ->{
             System.out.println("Categorias modificadas");
         });
 
-        ArrayList<Categoria> lista_default = cat_vm.getLista_cat().getValue();
-
-        ArrayList<Movimiento> movs_default = new ArrayList<>();
-        movs_default.add(new Movimiento(1,10.5f,"Papitas",lista_default.get(0),12,35,2022,12,10));
-        movs_default.add(new Movimiento(2,150.00f,"Hamburguesas",lista_default.get(0),14,15,2022,12,10));
-        movs_default.add(new Movimiento(3,27.5f,"Refresco",lista_default.get(0),12,15,2022,12,10));
-
         mov_vm = new ViewModelProvider(this).get(MovimientoViewModel.class);
-        mov_vm.setLista_mov(movs_default);
+        mov_vm.initLista_mov(this);
         mov_vm.getLista_mov().observe(this, movs ->{
             System.out.println("Movimientos modificados");
         });

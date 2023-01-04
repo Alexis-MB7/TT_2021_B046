@@ -135,10 +135,10 @@
 
         <ListView
             android:id="@+id/listViewEstadisticas"
-            android:layout_width="400dp"
-            android:layout_height="278dp"
+            android:layout_width="match_parent"
+            android:layout_height="284dp"
             android:layout_gravity="bottom|center"
-            android:layout_marginTop="10dp" />
+            android:layout_marginTop="5dp" />
 
     </LinearLayout>
 </RelativeLayout>

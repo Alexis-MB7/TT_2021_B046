@@ -37,6 +37,7 @@ import com.example.myapplication.R;
 import com.example.myapplication.view_models.CategoriaViewModel;
 import com.example.myapplication.view_models.MovimientoViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
@@ -95,6 +96,8 @@ public class MovimientoAddFragment extends Fragment {
         textInputLayout_time = getActivity().findViewById(R.id.textInputLayout_nuevoMov_hora);
         editText_time = textInputLayout_time.getEditText();
 
+        spinner = (Spinner) getActivity().findViewById(R.id.spinnerTipoCat);
+
         item3.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
@@ -140,6 +143,7 @@ public class MovimientoAddFragment extends Fragment {
                 } else {
                     System.out.println("*************Se guardo*************");
                     Movimiento new_mov = new Movimiento(movimientoList.size() + 1, Float.parseFloat(String.valueOf(editText_name.getText())), desc, cat, hour, minute, año, mes, dia);
+                    new_mov.setTipo(spinner.getSelectedItemPosition());
                     guardarMovimiento(new_mov);
                 }
 
@@ -149,10 +153,7 @@ public class MovimientoAddFragment extends Fragment {
     }
 
     private void guardarMovimiento(Movimiento mov) {
-
-        movimientoList.add(mov);
-        movs_vm.setLista_mov(movimientoList);
-        Toast.makeText(getActivity(), "Se guardo el movimiento", Toast.LENGTH_SHORT).show();
+        movs_vm.insertMov(getActivity(), mov);
         FloatingActionButton fab = getActivity().findViewById(R.id.fab_main);
         fab.show();
         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new InicioFragment()).commit();
@@ -185,12 +186,14 @@ public class MovimientoAddFragment extends Fragment {
             public void onClick(View view) {
                 MainActivity.showFab();
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new InicioFragment()).commit();
+                NavigationView navigationView = (NavigationView) getActivity().findViewById(R.id.nav_view);
+                navigationView.setCheckedItem(R.id.nav_inicio);
 
             }
         });
 
         spinner = (Spinner) getActivity().findViewById(R.id.spinnerTipoCat);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.tipos, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.tipos_de_movimiento, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
