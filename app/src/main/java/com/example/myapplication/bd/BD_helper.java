@@ -10,7 +10,7 @@ import com.example.myapplication.R;
 
 public class BD_helper extends SQLiteOpenHelper {
 
-    private static final int BD_VERSION = 10;
+    private static final int BD_VERSION = 14;
     private static final String BD_NOMBRE = "TT.db";
 
     public String tabla_categoria_query = "CREATE TABLE `categoria` (" +
@@ -66,10 +66,15 @@ public class BD_helper extends SQLiteOpenHelper {
 
     public String movimientosDefault_query =
                 "INSERT INTO 'movimiento' ('monto_mov', 'desc_mov', 'idcat_mov', 'tipo_mov', 'año_mov', 'mes_mov', 'dia_mov', 'hora_mov', 'minuto_mov')" +
-                "VALUES (185, 'Gasolina', 2, 0, 2023, 01, 08, 12, 35)," +
-                       "(150, 'Hamburguesas', 1, 1, 2023, 01, 21, 18, 45)," +
-                       "(27.5, 'Refresco', 1, 1, 2023, 02, 07, 19, 0)," +
-                       "(240, 'Ahorro Enero', 5, 3, 2023, 01, 01, 12, 0);";
+                "VALUES (-185, 'Gasolina', 2, 0, 2023, 01, 08, 12, 35)," +
+                       "(-150, 'Hamburguesas', 1, 1, 2023, 01, 21, 18, 45)," +
+                       "(-27.5, 'Refresco', 1, 1, 2023, 02, 07, 19, 0)," +
+                       "(-240, 'Ahorro Enero', 5, 3, 2023, 01, 01, 12, 0);";
+
+    public String movimientosFijosDefault_query =
+                "INSERT INTO 'movimientos_fijos' ('monto', 'idcat', 'año_mov', 'mes_mov', 'dia_mov', 'desc', 'periodo')" +
+                "VALUES (5000, 6, 2023, 01, 05, '1ra Quincena', 30)," +
+                       "(5000, 6, 2023, 01, 20, '2da Quincena', 30);";
 
     public BD_helper(@Nullable Context context) {
         super(context, BD_NOMBRE, null, BD_VERSION);
@@ -80,8 +85,10 @@ public class BD_helper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(tabla_categoria_query);
         sqLiteDatabase.execSQL(tabla_datos_query);
         sqLiteDatabase.execSQL(tabla_movimiento_query);
+        sqLiteDatabase.execSQL(tabla_movimiento_fijo_query);
         sqLiteDatabase.execSQL(categoriasDefault_query);
         sqLiteDatabase.execSQL(movimientosDefault_query);
+        sqLiteDatabase.execSQL(movimientosFijosDefault_query);
 
     }
 
@@ -91,6 +98,7 @@ public class BD_helper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS 'categoria'");
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS 'datos'");
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS 'movimiento'");
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS 'movimientos_fijos'");
         onCreate(sqLiteDatabase);
     }
 }

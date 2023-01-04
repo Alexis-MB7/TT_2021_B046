@@ -191,6 +191,54 @@ public class BD_handler extends BD_helper{
         return lista;
     }
 
+    public ArrayList<Movimiento> readMovimientosFijos(){
+        BD_helper helper = new BD_helper(context);
+        SQLiteDatabase bd = helper.getWritableDatabase();
+
+        ArrayList<Categoria> cats = readCategorias();
+        Categoria cat_mov =  null;
+        ArrayList<Movimiento> lista = new ArrayList<>();
+        Movimiento mov;
+        Cursor cursor = null;
+
+        int id, idcat, año, mes, dia, periodo;
+        float monto;
+        String desc;
+
+        cursor = bd.rawQuery("SELECT * FROM `movimientos_fijos`",null);
+
+        if(cursor.moveToFirst()){
+            do{
+                id = cursor.getInt(0);
+                monto = cursor.getFloat(1);
+                idcat = cursor.getInt(2);
+                año = cursor.getInt(3);
+                mes = cursor.getInt(4);
+                dia = cursor.getInt(5);
+                desc = cursor.getString(6);
+                periodo = cursor.getInt(7);
+
+
+
+
+                for (Categoria element : cats){
+                    if (element.getId() == idcat){
+                        cat_mov = element;
+                    }
+                }
+
+                mov = new Movimiento(id,monto,desc,cat_mov,0,0,año,mes,dia);
+                mov.setTipo(2);
+                mov.setPeriodo(periodo);
+                lista.add(mov);
+                System.out.println("Movimiento fijo leido " + id);
+            }while(cursor.moveToNext());
+        }
+        cursor.close();
+
+        return lista;
+    }
+
     public long createDatosPersonales(String nombre, int edad, String correo, boolean huella, boolean pin){
         long id = 0;
 

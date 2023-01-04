@@ -142,9 +142,16 @@ public class MovimientoAddFragment extends Fragment {
                     toast = 0;
                 } else {
                     System.out.println("*************Se guardo*************");
-                    Movimiento new_mov = new Movimiento(movimientoList.size() + 1, Float.parseFloat(String.valueOf(editText_name.getText())), desc, cat, hour, minute, año, mes, dia);
+                    Movimiento new_mov;
+                    if(spinner.getSelectedItemPosition() == 2){
+                        new_mov = new Movimiento(movimientoList.size() + 1, Float.parseFloat(String.valueOf(editText_name.getText())), desc, cat, hour, minute, año, mes, dia);
+                    }else{
+                        new_mov = new Movimiento(movimientoList.size() + 1, Float.parseFloat(String.valueOf(editText_name.getText()))*-1, desc, cat, hour, minute, año, mes, dia);
+                    }
                     new_mov.setTipo(spinner.getSelectedItemPosition());
                     guardarMovimiento(new_mov);
+                    NavigationView navigationView = (NavigationView) getActivity().findViewById(R.id.nav_view);
+                    navigationView.setCheckedItem(R.id.nav_inicio);
                 }
 
                 return false;
@@ -193,7 +200,13 @@ public class MovimientoAddFragment extends Fragment {
         });
 
         spinner = (Spinner) getActivity().findViewById(R.id.spinnerTipoCat);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.tipos_de_movimiento, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(getActivity(),android.R.layout.simple_spinner_item, getResources().getTextArray(R.array.tipos_de_movimiento)){
+            @Override
+            public int getCount() {
+                return super.getCount()-2;
+            }
+        };
+
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
@@ -272,6 +285,21 @@ public class MovimientoAddFragment extends Fragment {
                 catImage.setImageResource(cat.getImage());
                 catImage.setBackgroundColor(Color.rgb(cat.getColorR(), cat.getColorG(), cat.getColorB()));
                 catText.setText(cat.getNombre());
+                switch(cat.getTipo_cat()){
+                    case 0:
+                        spinner.setSelection(0);
+                        spinner.setEnabled(true);
+                        break;
+                    case 1:
+                        spinner.setSelection(2);
+                        spinner.setEnabled(false);
+                        break;
+                    case 2:
+                        spinner.setSelection(3);
+                        spinner.setEnabled(false);
+                        break;
+                }
+
 
             }
         });

@@ -10,8 +10,7 @@ public class Movimiento {
 
     public Calendar fechaCompleta;
     public int tipo;
-
-
+    public int periodo = 0;
 
     public Movimiento(int id, float monto, String descripcion, Categoria cat) {
         this.id = id;
@@ -79,5 +78,13 @@ public class Movimiento {
 
     public void setTipo(int tipo) {
         this.tipo = tipo;
+    }
+
+    public int getPeriodo() {
+        return periodo;
+    }
+
+    public void setPeriodo(int periodo) {
+        this.periodo = periodo;
     }
 }

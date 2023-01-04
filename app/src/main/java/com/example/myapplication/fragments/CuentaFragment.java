@@ -12,18 +12,22 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.myapplication.Categoria;
 import com.example.myapplication.Movimiento;
 import com.example.myapplication.adapters.MovimientoAdapter;
 import com.example.myapplication.R;
+import com.example.myapplication.view_models.MovimientoFijoViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CuentaFragment extends Fragment {
     ListView listViewMovimientos;
-    List<Movimiento> movimientoList;
+    MovimientoFijoViewModel fijo_vm;
+    List<Movimiento> fijosList;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,26 +57,11 @@ public class CuentaFragment extends Fragment {
         Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
         toolbar.setTitle("Cuenta");
 
+        fijo_vm = new ViewModelProvider(requireActivity()).get(MovimientoFijoViewModel.class);
+        fijosList = fijo_vm.getLista_fijos().getValue();
+
         listViewMovimientos = (ListView) view.findViewById(R.id.listViewCuenta);
-        MovimientoAdapter adapter = new MovimientoAdapter(getActivity(), fillData());
+        MovimientoAdapter adapter = new MovimientoAdapter(getActivity(), fijosList);
         listViewMovimientos.setAdapter(adapter);
-    }
-
-    private List<Movimiento> fillData() {
-        Categoria cat = new Categoria(1,R.drawable.ic_money,"Comida y Bebida",255,79,55, 1);
-        Categoria cat2 = new Categoria(3,R.drawable.ic_money,"Vivienda", 211,84,0, 1);
-
-        movimientoList = new ArrayList<>();
-
-        movimientoList.add(new Movimiento(1,10.50f,"Papitas", cat));
-        movimientoList.add(new Movimiento(1,30.0f,"Refresco", cat));
-        movimientoList.add(new Movimiento(1,46.50f,"Quesadillas", cat));
-        movimientoList.add(new Movimiento(1,10.50f,"Servicios", cat2));
-        movimientoList.add(new Movimiento(1,30.0f,"Deposito", cat2));
-        movimientoList.add(new Movimiento(1,46.50f,"Renta", cat2));
-
-
-
-        return movimientoList;
     }
 }

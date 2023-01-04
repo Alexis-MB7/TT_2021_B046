@@ -58,6 +58,7 @@ public class EstadisticasFragment extends Fragment {
     public int opt = 0;
     public String[] items = {"Gastos por Categoria","Gastos por Tipo"};
 
+    ArrayList<Movimiento> gastoList = new ArrayList<>();
     ArrayList<Movimiento> gastosList = new ArrayList<>();
     ArrayList<Categoria> gastosCats = new ArrayList<>();
 
@@ -103,12 +104,20 @@ public class EstadisticasFragment extends Fragment {
         movs_vm  = new ViewModelProvider(requireActivity()).get(MovimientoViewModel.class);
         listViewMovimientos = (ListView) view.findViewById(R.id.listViewEstadisticas);
         movimientoList = movs_vm.getLista_mov().getValue();
-        adapter = new MovimientoAdapter(getActivity(), movimientoList);
+
+        movimientoList.forEach(movimiento -> {
+            if(movimiento.getTipo() != 2){
+                gastoList.add(movimiento);
+            }
+        });
+
+        adapter = new MovimientoAdapter(getActivity(), gastoList);
         listViewMovimientos.setAdapter(adapter);
 
         pieChart = view.findViewById(R.id.chart_estadisticas);
         setupPieChart();
         loadPieChartData(movimientoList);
+
 
         imageButton = (ImageButton) view.findViewById(R.id.buttonEstadisticas);
         imageButton.setOnClickListener(new View.OnClickListener() {
@@ -166,15 +175,17 @@ public class EstadisticasFragment extends Fragment {
         pieChart.getDescription().setEnabled(false);
         pieChart.getLegend().setEnabled(false);
 
+
     }
 
     private void loadPieChartData(List<Movimiento> List){
         ArrayList<PieEntry> entries = new ArrayList<>();
+        gastosList = new ArrayList<>();
         if(opt == 0){
             List.forEach(movimiento -> {
-                if(movimiento.getCat().getTipo_cat() == 0){
+                if (movimiento.getTipo() != 2) {
                     gastosList.add(movimiento);
-                    if(!gastosCats.contains(movimiento.getCat()))
+                    if (!gastosCats.contains(movimiento.getCat()))
                         gastosCats.add(movimiento.getCat());
                 }
             });
@@ -184,7 +195,11 @@ public class EstadisticasFragment extends Fragment {
             for(int c = 0; c < gastosCats.size(); c++) {
                 for(int d = 0; d < gastosList.size(); d++) {
                     if(gastosList.get(d).getCat().equals(gastosCats.get(c))){
-                        totales[c] = totales[c] + gastosList.get(d).getMonto();
+                        if(gastosList.get(d).getMonto() < 0) {
+                            totales[c] = totales[c] + gastosList.get(d).getMonto()*-1;
+                        }else{
+                            totales[c] = totales[c] + gastosList.get(d).getMonto();
+                        }
                     };
                 }
                 entries.add(new PieEntry(totales[c],gastosCats.get(c).getNombre()));
@@ -196,13 +211,25 @@ public class EstadisticasFragment extends Fragment {
             for(int d = 0; d < List.size(); d++) {
                 switch (List.get(d).getTipo()){
                     case 0:
-                        totales[0] = totales[0] + List.get(d).getMonto();
+                        if(List.get(d).getMonto() < 0){
+                            totales[0] = totales[0] + List.get(d).getMonto()*-1;
+                        }else{
+                            totales[0] = totales[0] + List.get(d).getMonto();
+                        }
                         break;
                     case 1:
-                        totales[1] = totales[1] + List.get(d).getMonto();
+                        if(List.get(d).getMonto() < 0){
+                            totales[1] = totales[1] + List.get(d).getMonto()*-1;
+                        }else{
+                            totales[1] = totales[1] + List.get(d).getMonto();
+                        }
                         break;
                     case 3:
-                        totales[2] = totales[2] + List.get(d).getMonto();
+                        if(List.get(d).getMonto() < 0){
+                            totales[2] = totales[2] + List.get(d).getMonto()*-1;
+                        }else{
+                            totales[2] = totales[2] + List.get(d).getMonto();
+                        }
                         break;
                     default:
                         break;
@@ -246,7 +273,7 @@ public class EstadisticasFragment extends Fragment {
             total = total + f[i];
         }
 
-        s = Float.toString(total);
+        s = "- $" + Float.toString(total);
         return s;
     }
 
@@ -259,7 +286,6 @@ public class EstadisticasFragment extends Fragment {
     private void cambiarPeriodo(int check) {
         List<Movimiento> mov_list = new ArrayList<>();
         Calendar actual = Calendar.getInstance();
-        actual.getTime();
 
         switch (check){
             case 0:

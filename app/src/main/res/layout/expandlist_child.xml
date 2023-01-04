@@ -9,26 +9,28 @@
         android:id="@+id/child_image"
         android:src="@drawable/ic_pred_checked"
         android:background="@color/transparent"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="50dp"
         android:tag="init"
-        android:layout_weight="2"/>
+        android:layout_weight="15"/>
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="50dp"
-        android:layout_weight="5"
+        android:layout_weight="55"
         android:id="@+id/child_categoria"
         android:gravity="center_vertical"
+        android:paddingStart="10dp"
         android:text="Categoria"
         />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="50dp"
-        android:layout_weight="3"
+        android:layout_weight="30"
         android:id="@+id/child_monto"
-        android:gravity="center_vertical"
+        android:gravity="center"
+        android:textAlignment="center"
         android:text="$$$ + (X%)"
         />
 

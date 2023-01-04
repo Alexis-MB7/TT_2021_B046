@@ -9,6 +9,7 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.example.myapplication.FactorPredictivo;
 import com.example.myapplication.R;
 
 import java.util.List;
@@ -18,14 +19,17 @@ public class PrediccionesAdapter extends BaseExpandableListAdapter {
 
     private Context context;
     private List<String> groupList;
-    private Map<String, List<String>> colection;
+    private Map<String, List<FactorPredictivo>> colection;
 
-    public PrediccionesAdapter(Context context, List<String> groupList, Map<String, List<String>> colection) {
+    public PrediccionesAdapter(Context context, List<String> groupList, Map<String, List<FactorPredictivo>> colection) {
         this.context = context;
         this.groupList = groupList;
         this.colection = colection;
     }
 
+    public void setData(Map<String, List<FactorPredictivo>> colection){
+        this.colection = colection;
+    }
 
     @Override
     public int getGroupCount() {
@@ -46,7 +50,7 @@ public class PrediccionesAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public Object getChild(int i, int i1) {
+    public FactorPredictivo getChild(int i, int i1) {
 
         return colection.get(groupList.get(i)).get(i1);
     }
@@ -83,15 +87,13 @@ public class PrediccionesAdapter extends BaseExpandableListAdapter {
         return view;
     }
 
-    @Override
     public View getChildView(int i, int i1, boolean b, View view, ViewGroup viewGroup) {
 
-        String model = getChild(i, i1).toString();
         if (view == null){
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(R.layout.expandlist_child, null);
         }
-        TextView item = view.findViewById(R.id.child_categoria);
+
         ImageButton imageButton = view.findViewById(R.id.child_image);
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,7 +110,14 @@ public class PrediccionesAdapter extends BaseExpandableListAdapter {
                 }
             }
         });
-        item.setText(model);
+
+
+        TextView nombre = view.findViewById(R.id.child_categoria);
+        nombre.setText(getChild(i, i1).getCategoria().getNombre());
+
+        TextView monto = view.findViewById(R.id.child_monto);
+        monto.setText("$" + String.valueOf(getChild(i, i1).getMonto()));
+
 
         return view;
     }

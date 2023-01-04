@@ -22,6 +22,7 @@ import com.example.myapplication.adapters.MovimientoAdapter;
 import com.example.myapplication.adapters.PresupuestoAdapter;
 import com.example.myapplication.R;
 import com.example.myapplication.view_models.CategoriaViewModel;
+import com.example.myapplication.view_models.MovimientoFijoViewModel;
 import com.example.myapplication.view_models.MovimientoViewModel;
 
 import java.util.ArrayList;
@@ -33,18 +34,18 @@ import java.util.Map;
 public class Presupuesto50Fragment extends Fragment {
     ListView listViewMovimientos;
     List<Movimiento> movimientoList;
+    List<Movimiento> fijosList;
 
     List<String> group_items;
     float[] montoList;
-    List<Movimiento>  movimientoExpandableList;
+    float total;
     Map<String, List<Movimiento> > expandableList_proyecto;
     ExpandableListView expandableListView;
     ExpandableListAdapter expandableListAdapter;
 
     CategoriaViewModel cats_vm;
-    List<Categoria> categoriaList;
-    String[] tipos;
 
+    MovimientoFijoViewModel fijo_vm;
     MovimientoViewModel movs_vm;
     List<Movimiento> necesidadesList;
     List<Movimiento> deseosList;
@@ -83,17 +84,24 @@ public class Presupuesto50Fragment extends Fragment {
 
         cats_vm = new ViewModelProvider(requireActivity()).get(CategoriaViewModel.class);
 
+        fijo_vm = new ViewModelProvider(requireActivity()).get(MovimientoFijoViewModel.class);
+        fijosList = fijo_vm.getLista_fijos().getValue();
+
         movs_vm = new ViewModelProvider(requireActivity()).get(MovimientoViewModel.class);
         movimientoList = movs_vm.getLista_mov().getValue();
 
         listViewMovimientos = (ListView) view.findViewById(R.id.listViewProyZero);
-        MovimientoAdapter adapter = new MovimientoAdapter(getActivity(), movimientoList);
+        MovimientoAdapter adapter = new MovimientoAdapter(getActivity(), fijosList);
         listViewMovimientos.setAdapter(adapter);
+
+        for(Movimiento mov : fijosList){
+            total += mov.getMonto();
+        }
 
         createGroup();
         createGroupedData();
         expandableListView = getActivity().findViewById(R.id.exp_list_proy_zero);
-        expandableListAdapter = new PresupuestoAdapter(getActivity(),group_items, montoList, expandableList_proyecto);
+        expandableListAdapter = new PresupuestoAdapter(getActivity(),group_items, montoList, total, expandableList_proyecto);
         expandableListView.setAdapter(expandableListAdapter);
         expandableListView.expandGroup(0);
 
@@ -134,16 +142,7 @@ public class Presupuesto50Fragment extends Fragment {
             ahorros += mov.getMonto();
 
         expandableList_proyecto = new HashMap<String, List<Movimiento> >();
-        /*for (String group: group_items){
-            if(group.equals("Necesidades")){
-                loadChilds(necesidades);
-            }else if(group.equals("Deseos")){
-                loadChilds(deseos);
-            }else if(group.equals("Ahorros")){
-                loadChilds(ahorros);
-            }
-            expandableList_proyecto.put(group,movimientoExpandableList);
-        }*/
+
         for (String group: group_items){
             if(group.equals("Necesidades")){
                 expandableList_proyecto.put(group,necesidadesList);
@@ -153,7 +152,7 @@ public class Presupuesto50Fragment extends Fragment {
                 expandableList_proyecto.put(group,ahorrosList);
             }
         }
-        montoList = new float[]{necesidades,deseos,ahorros};
+        montoList = new float[]{necesidades*-1,deseos*-1,ahorros*-1};
 
     }
 

@@ -68,7 +68,14 @@ public class MovimientoAdapter extends BaseAdapter {
         textViewCategoria.setText(mov.cat.nombre);
         textViewDescripcion.setText(mov.descripcion + " ["+ tipos[mov.getTipo()] +"]");
         NumberFormat df = new DecimalFormat("0.00");
-        textViewMonto.setText("$" + df.format(mov.monto));
+        if (mov.monto < 0){
+            textViewMonto.setText("- $" + df.format(mov.monto*-1));
+            textViewMonto.setTextColor(Color.rgb(192,87,70));
+        }else{
+            textViewMonto.setText("$" + df.format(mov.monto));
+            textViewMonto.setTextColor(Color.rgb(153,209,123));
+        }
+
 
         return view;
     }

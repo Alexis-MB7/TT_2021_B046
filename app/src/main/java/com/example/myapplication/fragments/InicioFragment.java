@@ -134,7 +134,11 @@ public class InicioFragment extends Fragment {
         for(int c = 0; c < gastosCats.size(); c++) {
             for(int d = 0; d < gastosList.size(); d++) {
                 if(gastosList.get(d).getCat().equals(gastosCats.get(c))){
-                    totales[c] = totales[c] + gastosList.get(d).getMonto();
+                    if(gastosList.get(d).getMonto() < 0) {
+                        totales[c] = totales[c] + gastosList.get(d).getMonto()*-1;
+                    }else{
+                        totales[c] = totales[c] + gastosList.get(d).getMonto();
+                    }
                 };
             }
             entries.add(new PieEntry(totales[c],gastosCats.get(c).getNombre()));
@@ -172,7 +176,7 @@ public class InicioFragment extends Fragment {
             total = total + f[i];
         }
 
-        s = Float.toString(total);
+        s = "- $" + Float.toString(total);
         return s;
     }
 }

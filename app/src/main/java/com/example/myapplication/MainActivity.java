@@ -26,6 +26,7 @@ import com.example.myapplication.fragments.PrediccionesFragment;
 import com.example.myapplication.fragments.PresupuestoNuevoFragment;
 import com.example.myapplication.fragments.ProyectoNuevoFragment;
 import com.example.myapplication.view_models.CategoriaViewModel;
+import com.example.myapplication.view_models.MovimientoFijoViewModel;
 import com.example.myapplication.view_models.MovimientoViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     //ViewModel
     private CategoriaViewModel cat_vm;
     private MovimientoViewModel mov_vm;
+    private MovimientoFijoViewModel fijo_vm;
 
 
 
@@ -69,6 +71,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mov_vm.initLista_mov(this);
         mov_vm.getLista_mov().observe(this, movs ->{
             System.out.println("Movimientos modificados");
+        });
+
+        fijo_vm = new ViewModelProvider(this).get(MovimientoFijoViewModel.class);
+        fijo_vm.initLista_fijos(this);
+        fijo_vm.getLista_fijos().observe(this, movimientos -> {
+            System.out.println("Movimientos fijos modificados");
         });
 
         Toolbar toolbar = findViewById(R.id.toolbar);

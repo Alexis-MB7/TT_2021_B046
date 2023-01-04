@@ -13,17 +13,18 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="75"
-            android:gravity="center_vertical"
+            android:layout_weight="50"
+            android:gravity="start|center_vertical"
             android:id="@+id/group_title"
             android:paddingStart="25dp"/>
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="25"
+            android:layout_weight="50"
+            android:textStyle="italic"
             android:id="@+id/group_monto"
-            android:gravity="start|center_vertical"
+            android:gravity="end|center_vertical"
             android:paddingStart="25dp"/>
 
     </LinearLayout>

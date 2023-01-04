@@ -22,13 +22,24 @@ public class PresupuestoAdapter extends BaseExpandableListAdapter {
     private Context context;
     private List<String> groupList;
     private float[] montoList;
+    private float total;
     private Map<String, List<Movimiento> > colection;
+    private int flag = 0;
 
     public PresupuestoAdapter(Context context, List<String> groupList, float[] montoList, Map<String, List<Movimiento> > colection) {
         this.context = context;
         this.groupList = groupList;
         this.colection = colection;
         this.montoList = montoList;
+    }
+
+    public PresupuestoAdapter(Context context, List<String> groupList, float[] montoList, float total, Map<String, List<Movimiento> > colection) {
+        this.context = context;
+        this.groupList = groupList;
+        this.colection = colection;
+        this.montoList = montoList;
+        this.total = total;
+        flag = 1;
     }
 
 
@@ -88,7 +99,43 @@ public class PresupuestoAdapter extends BaseExpandableListAdapter {
 
         TextView monto = view.findViewById(R.id.group_monto);
         monto.setTypeface(null, Typeface.BOLD);
-        monto.setText("$" + String.valueOf(montoList[i]));
+        if (flag == 0){
+            monto.setText("$" + String.valueOf(montoList[i]));
+        }else{
+            switch (i){
+                case 0:
+                    monto.setText("$" + String.valueOf(montoList[i]) +" / $" + String.valueOf(total*0.5));
+                    if(montoList[i] > total*0.5){
+                        monto.setTextColor(Color.rgb(192,87,70));
+                    }else if(montoList[i] > total*0.5*0.75){
+                        monto.setTextColor(Color.rgb(221,164, 72));
+                    }else{
+                        monto.setTextColor(Color.rgb(153,209,123));
+                    }
+                    break;
+                case 1:
+                    monto.setText("$" + String.valueOf(montoList[i]) +" / $" + String.valueOf(total*0.3));
+                    if(montoList[i] > total*0.3){
+                        monto.setTextColor(Color.rgb(192,87,70));
+                    }else if(montoList[i] > total*0.3*0.75){
+                        monto.setTextColor(Color.rgb(221,164, 72));
+                    }else{
+                        monto.setTextColor(Color.rgb(153,209,123));
+                    }
+                    break;
+                case 2:
+                    monto.setText("$" + String.valueOf(montoList[i]) +" / $" + String.valueOf(total*0.2));
+                    if(montoList[i] > total*0.2){
+                        monto.setTextColor(Color.rgb(192,87,70));
+                    }else if(montoList[i] > total*0.2*0.75){
+                        monto.setTextColor(Color.rgb(221,164, 72));
+                    }else{
+                        monto.setTextColor(Color.rgb(153,209,123));
+                    }
+                    break;
+            }
+        }
+
         return view;
     }
 
