@@ -29,4 +29,20 @@ public class MovimientoFijoViewModel extends ViewModel {
         setLista_fijos(handler.readMovimientosFijos());
     }
 
+    public void insertFijo(Context context, Movimiento movimiento, int period, int reps){
+        BD_handler handler = new BD_handler(context);
+
+        long id = handler.createMovimientoFijo(movimiento, period, reps);
+        if(id > 0){
+            ArrayList<Movimiento> lista = getLista_fijos().getValue();
+            lista.add(movimiento);
+            setLista_fijos(lista);
+            Toast.makeText(context, "Se guardo el movimiento recurrente", Toast.LENGTH_SHORT).show();
+            System.out.println("Se guardo correctamente el movimiento recurrente");
+        }else {
+            System.out.println("Error al guardar el movimiento recurrente");
+        }
+
+    }
+
 }

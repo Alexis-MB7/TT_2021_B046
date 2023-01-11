@@ -13,11 +13,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -35,6 +37,7 @@ import com.example.myapplication.MainActivity;
 import com.example.myapplication.Movimiento;
 import com.example.myapplication.R;
 import com.example.myapplication.view_models.CategoriaViewModel;
+import com.example.myapplication.view_models.MovimientoFijoViewModel;
 import com.example.myapplication.view_models.MovimientoViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
@@ -48,6 +51,7 @@ import java.util.Locale;
 public class MovimientoAddFragment extends Fragment {
     ArrayList<Movimiento> movimientoList;
     MovimientoViewModel movs_vm;
+    MovimientoFijoViewModel fijo_vm;
 
     TextInputLayout textInputLayout_name;
     EditText editText_name;
@@ -57,6 +61,13 @@ public class MovimientoAddFragment extends Fragment {
     EditText editText_time;
     EditText editText_desc;
     LinearLayout cat_container;
+    LinearLayout linearLayout;
+    TextInputLayout textInputLayout_periodos;
+    EditText editText_periodos;
+    TextInputLayout textInputLayout_repeticiones;
+    EditText editText_repeticiones;
+    Switch sw;
+    Spinner spinnerPeriodos;
 
     List<Categoria> categoriaList;
     CategoriaViewModel cats_vm;
@@ -69,6 +80,7 @@ public class MovimientoAddFragment extends Fragment {
     int hour, minute;
     int año, mes, dia;
     String desc;
+    int periodos, repeticiones;
 
 
     @Override
@@ -137,6 +149,22 @@ public class MovimientoAddFragment extends Fragment {
                     desc = String.valueOf(editText_desc.getText());
                 }
 
+                if(sw.isChecked()){
+                    if (TextUtils.isEmpty(editText_periodos.getText())) {
+                        textInputLayout_periodos.setError("-");
+                        toast = 1;
+                    } else {
+                        textInputLayout_time.setError(null);
+                    }
+
+                    if (TextUtils.isEmpty(editText_repeticiones.getText())) {
+                        textInputLayout_repeticiones.setError("-");
+                        toast = 1;
+                    } else {
+                        textInputLayout_repeticiones.setError(null);
+                    }
+                }
+
                 if (toast == 1) {
                     Toast.makeText(getActivity(), "Ingrese correctamente los datos", Toast.LENGTH_SHORT).show();
                     toast = 0;
@@ -149,7 +177,23 @@ public class MovimientoAddFragment extends Fragment {
                         new_mov = new Movimiento(movimientoList.size() + 1, Float.parseFloat(String.valueOf(editText_name.getText()))*-1, desc, cat, hour, minute, año, mes, dia);
                     }
                     new_mov.setTipo(spinner.getSelectedItemPosition());
-                    guardarMovimiento(new_mov);
+                    if(sw.isChecked()){
+                        int p = Integer.parseInt(String.valueOf(editText_periodos.getText()));
+                        switch (spinnerPeriodos.getSelectedItemPosition()){
+                            case 0:
+                                p = p * 7;
+                                break;
+                            case 1:
+                                p = p * 30;
+                                break;
+                            case 2:
+                                p = p * 365;
+                                break;
+                        }
+                        guardarMovimientoRecurrente(new_mov, p, Integer.parseInt(String.valueOf(editText_repeticiones.getText())));
+                    }else{
+                        guardarMovimiento(new_mov);
+                    }
                     NavigationView navigationView = (NavigationView) getActivity().findViewById(R.id.nav_view);
                     navigationView.setCheckedItem(R.id.nav_inicio);
                 }
@@ -165,6 +209,13 @@ public class MovimientoAddFragment extends Fragment {
         fab.show();
         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new InicioFragment()).commit();
 
+    }
+
+    private void guardarMovimientoRecurrente(Movimiento mov, int period, int reps){
+        fijo_vm.insertFijo(getActivity(), mov,period, reps);
+        FloatingActionButton fab = getActivity().findViewById(R.id.fab_main);
+        fab.show();
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new InicioFragment()).commit();
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -186,6 +237,8 @@ public class MovimientoAddFragment extends Fragment {
         movs_vm = new ViewModelProvider(requireActivity()).get(MovimientoViewModel.class);
         movimientoList = movs_vm.getLista_mov().getValue();
 
+        fijo_vm = new ViewModelProvider(requireActivity()).get(MovimientoFijoViewModel.class);
+
         Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
         toolbar.setTitle("Nuevo Movimiento");
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -206,9 +259,14 @@ public class MovimientoAddFragment extends Fragment {
                 return super.getCount()-2;
             }
         };
-
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+
+        spinnerPeriodos = getActivity().findViewById(R.id.spinnerMovRecurrente);
+        ArrayAdapter<CharSequence> adapter2 = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, getResources().getTextArray(R.array.periodos));
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerPeriodos.setAdapter(adapter2);
+
 
         textInputLayout_time = getActivity().findViewById(R.id.textInputLayout_nuevoMov_hora);
         editText_time = textInputLayout_time.getEditText();
@@ -262,13 +320,42 @@ public class MovimientoAddFragment extends Fragment {
 
             }
         });
+
+        linearLayout = getActivity().findViewById(R.id.linear);
+        textInputLayout_periodos = getActivity().findViewById(R.id.textInputLayout_recu_periodos);
+        editText_periodos = getActivity().findViewById(R.id.textInputEdit_recu_periodos);
+        linearLayout.setVisibility(View.INVISIBLE);
+
+        textInputLayout_repeticiones = getActivity().findViewById(R.id.textInputLayout_repeticiones);
+        editText_repeticiones = getActivity().findViewById(R.id.textInputEdit_repeticiones);
+        textInputLayout_repeticiones.setVisibility(View.INVISIBLE);
+
+        sw = getActivity().findViewById(R.id.mov_recurrente);
+        sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    // The toggle is enabled
+                    linearLayout.setVisibility(View.VISIBLE);
+                    textInputLayout_repeticiones.setVisibility(View.VISIBLE);
+                    textInputLayout_time.setEnabled(false);
+                    editText_time.setText(String.format(Locale.getDefault(), "%02d:%02d", 0, 0));
+                } else {
+                    // The toggle is disabled
+                    linearLayout.setVisibility(View.INVISIBLE);
+                    textInputLayout_repeticiones.setVisibility(View.INVISIBLE);
+                    textInputLayout_time.setEnabled(true);
+                    editText_time.setText("");
+
+                }
+            }
+        });
     }
 
     private void showCategoriaPicker(List<Categoria> lista) {
         AlertDialog.Builder builderSingle = new AlertDialog.Builder(getActivity());
         builderSingle.setTitle("Seleccione una categoria:");
 
-        builderSingle.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+        builderSingle.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();

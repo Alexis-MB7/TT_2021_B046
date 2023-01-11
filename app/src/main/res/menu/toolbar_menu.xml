@@ -22,4 +22,10 @@
         android:visible="false"
         android:icon="@drawable/ic_eliminar"/>
 
+    <item android:id="@+id/editar"
+        android:title="Eliminar"
+        app:showAsAction="always"
+        android:visible="false"
+        android:icon="@drawable/ic_editar"/>
+
 </menu>

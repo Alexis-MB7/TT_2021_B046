@@ -94,7 +94,7 @@ public class PresupuestoNuevoFragment extends Fragment {
                 if(opt == 0){
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Presupuesto50Fragment()).commit();
                 }else if(opt == 1){
-                    Toast.makeText(getActivity(), items[1], Toast.LENGTH_SHORT).show();
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PresupuestoZeroFragment()).commit();
                 }else{
                     textInputLayout.setError("Seleccione algun presupuesto");
                 }

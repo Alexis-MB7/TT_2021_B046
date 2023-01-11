@@ -194,7 +194,76 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="40"
+        android:layout_weight="5"
+        />
+
+    <Switch
+        android:id="@+id/mov_recurrente"
+        android:layout_width="match_parent"
+        android:layout_height="15dp"
+        android:layout_weight="5"
+        android:switchMinWidth="56dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginStart="50dp"
+        android:text="Movimiento Recurrente:"
+        android:checked="false"
+        android:textOff="Único"
+        android:textOn="Recurrente"/>
+
+    <LinearLayout
+        android:id="@+id/linear"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="15"
+        android:orientation="horizontal">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout_recu_periodos"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:layout_weight="60">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textInputEdit_recu_periodos"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="# de Periodos"
+                android:inputType="number"
+                android:background="@color/transparent"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="40"
+            android:id="@+id/spinnerMovRecurrente"
+
+            />
+    </LinearLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout_repeticiones"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="5dp"
+        android:layout_weight="10">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textInputEdit_repeticiones"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Numero de repeticiones"
+            android:inputType="number"
+            android:background="@color/transparent"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
         />
 
 </LinearLayout>

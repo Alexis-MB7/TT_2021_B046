@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="80"
         android:gravity="center_vertical|center_horizontal"
-        android:text="50/30/20"
+        android:text="Zero Budget"
         android:textAlignment="center"
-        android:textSize="50sp"
+        android:textSize="45sp"
         android:textStyle="bold|italic" />
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,17 +32,34 @@
             android:paddingStart="10dp"/>
 
         <ImageButton
+            android:id="@+id/fijos_show_button"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="20"
-            android:src="@drawable/ic_agregar"
+            android:src="@drawable/ic_close"
             android:background="@color/transparent"
             android:layout_marginEnd="15dp"/>
 
     </LinearLayout>
 
     <ListView
-        android:id="@+id/listViewProy50"
+        android:id="@+id/listViewProyZero"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="250"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="49"
+        android:textSize="24sp"
+        android:text="Distribución por Categoria"
+        android:gravity="center_vertical"
+        android:textStyle="bold"
+        android:paddingStart="10dp"/>
+
+    <ExpandableListView
+        android:id="@+id/exp_list_proy_zero"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="350"/>
@@ -52,15 +69,32 @@
         android:layout_height="0dp"
         android:layout_weight="49"
         android:textSize="24sp"
-        android:text="Gastos"
+        android:text="Estado actual"
         android:gravity="center_vertical"
         android:textStyle="bold"
         android:paddingStart="10dp"/>
 
-    <ExpandableListView
-        android:id="@+id/exp_list_proy_50"
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="450"/>
+        android:layout_weight="49"
+        android:textSize="18sp"
+        android:text="Ingresos Fijos  = Gastos + Ahorros"
+        android:gravity="center_vertical|center_horizontal"
+        android:textAlignment="center"
+        android:textStyle="italic"
+        android:paddingStart="10dp"/>
+
+    <TextView
+        android:id="@+id/resumen"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="49"
+        android:textSize="18sp"
+        android:text="Ingresos Fijos  = Gastos + Ahorros"
+        android:gravity="center_vertical|center_horizontal"
+        android:textAlignment="center"
+        android:textStyle="italic"
+        android:paddingStart="10dp"/>
 
 </LinearLayout>

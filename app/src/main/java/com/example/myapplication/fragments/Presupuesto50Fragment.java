@@ -16,7 +16,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.myapplication.Categoria;
 import com.example.myapplication.Movimiento;
 import com.example.myapplication.adapters.MovimientoAdapter;
 import com.example.myapplication.adapters.PresupuestoAdapter;
@@ -26,7 +25,6 @@ import com.example.myapplication.view_models.MovimientoFijoViewModel;
 import com.example.myapplication.view_models.MovimientoViewModel;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -90,7 +88,7 @@ public class Presupuesto50Fragment extends Fragment {
         movs_vm = new ViewModelProvider(requireActivity()).get(MovimientoViewModel.class);
         movimientoList = movs_vm.getLista_mov().getValue();
 
-        listViewMovimientos = (ListView) view.findViewById(R.id.listViewProyZero);
+        listViewMovimientos = (ListView) view.findViewById(R.id.listViewProy50);
         MovimientoAdapter adapter = new MovimientoAdapter(getActivity(), fijosList);
         listViewMovimientos.setAdapter(adapter);
 
@@ -100,7 +98,7 @@ public class Presupuesto50Fragment extends Fragment {
 
         createGroup();
         createGroupedData();
-        expandableListView = getActivity().findViewById(R.id.exp_list_proy_zero);
+        expandableListView = getActivity().findViewById(R.id.exp_list_proy_50);
         expandableListAdapter = new PresupuestoAdapter(getActivity(),group_items, montoList, total, expandableList_proyecto);
         expandableListView.setAdapter(expandableListAdapter);
         expandableListView.expandGroup(0);

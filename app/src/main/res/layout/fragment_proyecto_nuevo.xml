@@ -78,34 +78,34 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="90"
-                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="90"
+                    android:orientation="horizontal">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_margin="5dp"
-                    android:layout_weight="60">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:hint="Tiempo limite"
-                        android:inputType="number"
-                        android:background="@color/transparent"/>
+                        android:layout_margin="5dp"
+                        android:layout_weight="60">
 
-                </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="Tiempo limite"
+                            android:inputType="number"
+                            android:background="@color/transparent"/>
 
-                <androidx.appcompat.widget.AppCompatSpinner
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="40"
-                    android:id="@+id/spinnerNuevoProy"
+                    </com.google.android.material.textfield.TextInputLayout>
 
-                    />
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="40"
+                        android:id="@+id/spinnerNuevoProy"
+
+                        />
 
             </LinearLayout>
 

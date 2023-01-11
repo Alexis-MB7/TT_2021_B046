@@ -7,7 +7,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -25,20 +24,22 @@ import com.example.myapplication.SortMovimientos;
 import com.example.myapplication.adapters.PrediccionesAdapter;
 import com.example.myapplication.R;
 import com.example.myapplication.view_models.CategoriaViewModel;
-import com.example.myapplication.view_models.MovimientoFijoViewModel;
 import com.example.myapplication.view_models.MovimientoViewModel;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -162,35 +163,80 @@ public class PrediccionesFragment extends Fragment {
 
     private void setupLineChart() {
         lineChart.setDragEnabled(true);
-        lineChart.setScaleEnabled(false);
+        lineChart.setScaleEnabled(true);
         lineChart.getDescription().setEnabled(false);
         lineChart.getLegend().setEnabled(false);
-        lineChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-        lineChart.getAxisRight().setEnabled(false);
+        lineChart.getXAxis().setEnabled(false);
         lineChart.setDrawGridBackground(true);
         lineChart.setDrawBorders(true);
+        lineChart.setTouchEnabled(true);
+        lineChart.setPinchZoom(true);
+        lineChart.setHighlightPerTapEnabled(false);
+        lineChart.setHighlightPerDragEnabled(false);
+
     }
 
     private void loadLineChartData(int x){
         Calendar actual = Calendar.getInstance();
+        float xInterval = 0f;
+
+        switch (x){
+            case 0:
+                xInterval = 7f;
+                break;
+            case 1:
+                xInterval = 30f;
+                break;
+            case 2:
+                xInterval = 365f;
+                break;
+        }
 
         for(Movimiento m: movimientoList){
             if(actual.compareTo(m.getFechaCompleta()) >= 0){
             }
         }
 
-        LineDataSet set1 = new LineDataSet(entriesHistogram(movimientoList, x),"Set 1");
-        set1.setFillAlpha(110);
-        set1.setColor(Color.RED);
-        set1.setDrawValues(false);
+        LineDataSet datos = new LineDataSet(entriesHistogram(movimientoList, x),"Gastos");
+        datos.setFillAlpha(110);
+        datos.setColor(Color.rgb(98, 0, 238));
+        datos.setDrawValues(true);
+        datos.setCircleColor(Color.rgb(98, 0, 238));
+        datos.setCircleHoleColor(Color.rgb(98, 0, 238));
+        datos.setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getAxisLabel(float value, AxisBase axis) {
+                String str;
+                if(value < 0){
+                    str = "  -$" + String.valueOf(value);
+                }else{
+                    str = "  $" + String.valueOf(value);
+                }
+                return str;
+            }
+        });
+        datos.setLineWidth(2);
+
+        XAxis xAxis = lineChart.getXAxis();
+        xAxis.setSpaceMax(2.5f);
+        xAxis.setSpaceMin(1f);
+        xAxis.setDrawGridLines(false);
 
         ArrayList<ILineDataSet> dataSets = new ArrayList<>();
-        dataSets.add(set1);
+        dataSets.add(datos);
 
         LineData lineData1  = new LineData(dataSets);
         lineChart.setData(lineData1);
         lineChart.invalidate();
         lineChart.animateY(1000, Easing.EaseInBack);
+        lineChart.highlightValue(5f,lineChart.getLineData().getEntryCount());
+
+        float xMin = (float)Math.floor((datos.getXMin()-xInterval)/xInterval)*xInterval;
+        float xMax = (float)Math.ceil((datos.getXMax()+xInterval)/xInterval)*xInterval;
+
+        xAxis.setAxisMinimum(xMin);
+        xAxis.setAxisMaximum(xMax);
+
 
     }
 
@@ -211,44 +257,56 @@ public class PrediccionesFragment extends Fragment {
 
         switch(option_periodo){
             case 0:
-                sizeHistogram = lista.get(lista.size()-1).getFechaCompleta().get(Calendar.WEEK_OF_YEAR) - lista.get(0).getFechaCompleta().get(Calendar.WEEK_OF_YEAR) + 1;
+                sizeHistogram = ((lista.get(lista.size()-1).getFechaCompleta().get(Calendar.YEAR)*52) + lista.get(lista.size()-1).getFechaCompleta().get(Calendar.WEEK_OF_YEAR)) - ((lista.get(0).getFechaCompleta().get(Calendar.YEAR)*52) + lista.get(0).getFechaCompleta().get(Calendar.WEEK_OF_YEAR)) + 1;
                 System.out.println(sizeHistogram);
                 monto = new float[sizeHistogram][2];
 
+                int j = 0;
                 for(int i = 0; i < sizeHistogram; i++){
                     temp = 0;
+                    int fecha_comp =  lista.get(j).getFechaCompleta().get(Calendar.WEEK_OF_YEAR) + (lista.get(j).getFechaCompleta().get(Calendar.YEAR)*52);
                     for(Movimiento m: lista){
-                        if(m.getFechaCompleta().get(Calendar.WEEK_OF_YEAR) <= i+1){
+                        int fecha = m.getFechaCompleta().get(Calendar.WEEK_OF_YEAR) + (m.getFechaCompleta().get(Calendar.YEAR)*52);
+
+                        if(fecha <= fecha_comp){
                             temp += m.getMonto();
                         }else{
+                            j++;
                             break;
                         }
                     }
-                    monto[i] = new float[]{(i+1)*7,temp*-1};
-                    entries.add(new Entry((i+1)*7,temp*-1));
+                    monto[i] = new float[]{(i+1)*7,temp};
+                    entries.add(new Entry((i+1)*7,temp));
                 }
                 System.out.println(Arrays.deepToString(monto));
                 break;
             case 1:
-                sizeHistogram = lista.get(lista.size()-1).getFechaCompleta().get(Calendar.MONTH) - lista.get(0).getFechaCompleta().get(Calendar.MONTH) + 1;
+                sizeHistogram = ((lista.get(lista.size()-1).getFechaCompleta().get(Calendar.YEAR)*12) + lista.get(lista.size()-1).getFechaCompleta().get(Calendar.MONTH) + 1) - ((lista.get(0).getFechaCompleta().get(Calendar.YEAR)*12) + lista.get(0).getFechaCompleta().get(Calendar.MONTH)+1) + 1;
                 System.out.println(sizeHistogram);
                 monto = new float[sizeHistogram][2];
 
+                j = 0;
                 for(int i = 0; i < sizeHistogram; i++){
                     temp = 0;
+                    int fecha_comp =  (lista.get(j).getFechaCompleta().get(Calendar.MONTH) + 1) + (lista.get(j).getFechaCompleta().get(Calendar.YEAR)*12);
                     for(Movimiento m: lista){
-                        if(m.getFechaCompleta().get(Calendar.MONTH) <= i+1){
+                        int fecha = (m.getFechaCompleta().get(Calendar.MONTH)+1) + (m.getFechaCompleta().get(Calendar.YEAR)*12);
+
+                        if(fecha <= fecha_comp){
                             temp += m.getMonto();
                         }else{
+                            j++;
                             break;
                         }
                     }
-                    monto[i] = new float[]{(i+1)*7,temp*-1};
-                    entries.add(new Entry((i+1)*7,temp*-1));
+                    monto[i] = new float[]{(i+1)*30,temp};
+                    entries.add(new Entry((i+1)*30,temp));
                 }
                 System.out.println(Arrays.deepToString(monto));
                 break;
+
             case 2:
+
                 sizeHistogram = lista.get(lista.size()-1).getFechaCompleta().get(Calendar.YEAR) - lista.get(0).getFechaCompleta().get(Calendar.YEAR) + 1;
                 System.out.println(sizeHistogram);
                 monto = new float[sizeHistogram][2];
@@ -262,17 +320,53 @@ public class PrediccionesFragment extends Fragment {
                             break;
                         }
                     }
-                    monto[i] = new float[]{(i+1)*7,temp*-1};
-                    entries.add(new Entry((i+1)*7,temp*-1));
+                    monto[i] = new float[]{(i+1)*365,temp};
+                    entries.add(new Entry((i+1)*365,temp));
                 }
                 System.out.println(Arrays.deepToString(monto));
                 break;
 
+            default:
+                throw new IllegalStateException("Unexpected value: " + option_periodo);
         }
-
+        entries.add(nuevaPrediccion(monto));
         return entries;
 
 
+    }
+
+    private Entry nuevaPrediccion(float[][] monto){
+        Entry entry;
+        float pred_y = 0;
+        float pred_x;
+        double f1;
+        double f2 = 0;
+        double f3;
+
+        if(monto.length == 1){
+            entry = new Entry(monto[0][0],monto[0][1]);
+            return entry;
+        }
+        pred_x = monto[monto.length-1][0] + (monto[monto.length-1][0] - monto[monto.length-2][0]);
+
+        int n_mayus = monto.length;
+        for(int n = 1; n < n_mayus; n++){
+            f1 = n/((Math.pow(n_mayus,2) + n_mayus)/2);
+            if(monto[n][1] == monto[n-1][1]){
+                //Nothing;
+            }else{
+                f2 = (monto[n][1] - monto[n-1][1])/(Math.abs(monto[n][1] - monto[n-1][1]));
+            }
+
+            f3 = Math.sqrt(Math.pow(monto[n][1] - monto[n-1][1],2) + Math.pow(monto[n][0] - monto[n-1][0],2));
+            pred_y = (float) (pred_y + (f1 * f2 * f3));
+        }
+        pred_y = pred_y + monto[monto.length-1][1];
+        pred_y = Math.round(pred_y*100);
+        pred_y = pred_y/100;
+        entry = new Entry(pred_x,pred_y);
+
+        return entry;
     }
 
     private void createGroupedData() {

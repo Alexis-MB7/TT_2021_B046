@@ -92,7 +92,6 @@
                 android:layout_weight="33"
                 android:background="@drawable/style_radio_flat_selector"
                 android:button="@android:color/transparent"
-                android:checked="true"
                 android:gravity="center"
                 android:paddingLeft="16dp"
                 android:paddingTop="3dp"

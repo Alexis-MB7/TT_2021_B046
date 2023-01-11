@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="2dp">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_weight="12"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="5dp"
+        app:cardBackgroundColor="@color/transparent"
+        app:cardCornerRadius="250dp"
+        app:cardElevation="0dp">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_margin="3dp"
+            app:cardCornerRadius="250dp">
+
+            <ImageView
+                android:contentDescription="Icono de Categoria"
+                android:id="@+id/imageView_mov"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="5dp"
+                app:srcCompat="@drawable/ic_money" />
+
+        </androidx.cardview.widget.CardView>
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_weight="50"
+        android:id="@+id/child_categoria"
+        android:gravity="center_vertical"
+        android:text="Categoria"
+        android:layout_marginEnd="5dp"
+        />
+
+    <EditText
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_weight="30"
+        android:id="@+id/child_monto"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:textStyle="italic|bold"
+        android:inputType="numberDecimal"
+        />
+
+
+</LinearLayout>

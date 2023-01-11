@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.example.myapplication.bd.BD_handler;
 import com.example.myapplication.bd.BD_helper;
 import com.example.myapplication.fragments.CategoriasFragment;
 import com.example.myapplication.fragments.CuentaFragment;
@@ -28,6 +29,7 @@ import com.example.myapplication.fragments.ProyectoNuevoFragment;
 import com.example.myapplication.view_models.CategoriaViewModel;
 import com.example.myapplication.view_models.MovimientoFijoViewModel;
 import com.example.myapplication.view_models.MovimientoViewModel;
+import com.example.myapplication.view_models.ProyectoViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
@@ -43,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private CategoriaViewModel cat_vm;
     private MovimientoViewModel mov_vm;
     private MovimientoFijoViewModel fijo_vm;
+    private ProyectoViewModel proy_vm;
 
 
 
@@ -55,6 +58,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         BD_helper bd_helper = new BD_helper(this);
         SQLiteDatabase bd = bd_helper.getWritableDatabase();
+        BD_handler bd_handler = new BD_handler(this);
+        bd_handler.checkMovimientosPeriodicos();
+
         if(bd != null){
             System.out.println("Se creo la BD");
         }else{
@@ -78,6 +84,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fijo_vm.getLista_fijos().observe(this, movimientos -> {
             System.out.println("Movimientos fijos modificados");
         });
+
+        proy_vm = new ViewModelProvider(this).get(ProyectoViewModel.class);
+        proy_vm.initProyecto(this);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Inicio");
